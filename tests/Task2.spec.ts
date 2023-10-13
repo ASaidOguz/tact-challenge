@@ -1,7 +1,7 @@
 import { Blockchain, SandboxContract } from '@ton-community/sandbox';
 import { toNano } from 'ton-core';
 import { Task2 } from '../wrappers/Task2';
-
+import '@ton-community/test-utils';
 describe('Task2', () => {
     let blockchain: Blockchain;
     let task2: SandboxContract<Task2>;
