@@ -30,7 +30,7 @@ contract Task1 with Deployable {
     
     receive(msg: Subtract) {
       let counter:Int=self.counter;
-      let sub_value=msg.number;
+      let sub_value:Int=msg.number;
       self.counter=counter-sub_value;
     }
 
