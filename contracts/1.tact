@@ -29,7 +29,9 @@ contract Task1 with Deployable {
     }
     
     receive(msg: Subtract) {
-      self.counter=self.counter-msg.number;
+      let counter:Int=self.counter;
+      let sub_value=msg.number;
+      self.counter=counter-sub_value;
     }
 
     get fun counter(): Int {
