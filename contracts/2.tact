@@ -28,7 +28,7 @@ send(SendParameters{
     to: msg.sender,
     value: 0,
     mode:SendRemainingBalance+SendIgnoreErrors,
-    bounce:false,
+    bounce:true,
     body: "Bounced".asComment()
 
 });
