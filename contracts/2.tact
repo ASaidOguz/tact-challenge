@@ -36,7 +36,8 @@ send(SendParameters{
   }
 
   receive(msg: Slice) {  
-    let msg_raw:Slice=Context().raw;
+    ctx:Context=context();
+    let msg_raw:Slice=ctx.raw;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
                            storeSlice(msg_raw).
