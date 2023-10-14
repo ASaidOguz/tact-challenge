@@ -51,7 +51,7 @@ send(SendParameters{
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
                       storeAddress(sender).
-                      storeCoins(msg_value).
+                      
                       storeRef(forwarded_msg).
                       endCell();
 
