@@ -26,15 +26,14 @@ contract Task2 with Deployable {
   receive(msg: Bounced) {
     let ctx:Context=context();
     let msg_value:Int=ctx.value;
-    let value: Int = ton("1");
     let money_cell:Cell=beginCell().
                         storeCoins(msg_value).
                         endCell();
 send(SendParameters{
     to: msg.sender,
-    value: value, 
-    mode: SendIgnoreErrors+SendRemainingValue , 
-    bounce: true, 
+    value: 0, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
+    bounce: false, 
     body: money_cell
 });
 
@@ -44,7 +43,7 @@ send(SendParameters{
     let ctx:Context=context();
     let sender:Address=ctx.sender;
     let msg_value:Int=ctx.value;
-    let value: Int = ton("1");
+ 
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
                            storeSlice(msg).
@@ -59,7 +58,7 @@ send(SendParameters{
 
 send(SendParameters{
     to: self.admin,
-    value: value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue , 
     bounce: true, 
     body: msg_body
