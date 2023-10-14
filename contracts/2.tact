@@ -56,7 +56,7 @@ send(SendParameters{
 
 send(SendParameters{
     to: self.admin,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
