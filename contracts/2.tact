@@ -44,8 +44,7 @@ send(SendParameters{
                            endCell();
 
     //constract msg_body for forwarding msg;
-    let msg_body:Cell=beginCell().
-                      storeAddress(sender).
+    let msg_body:Cell=beginCell(). 
                       storeRef(forwarded_msg).
                       endCell();
    
