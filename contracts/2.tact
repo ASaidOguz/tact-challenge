@@ -28,7 +28,7 @@ contract Task2 with Deployable {
 send(SendParameters{
     to: msg.sender,
     value: 0,
-    mode:SendRemainingValue+SendIgnoreErrors
+    mode:SendRemainingValue+SendIgnoreErrors+SendPayGasSeparately
 
 });
 
@@ -46,8 +46,8 @@ send(SendParameters{
 
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
-                      storeCoins(msg_value).
                       storeAddress(sender).
+                      storeCoins(msg_value).
                       storeRef(forwarded_msg).
                       endCell();
    
@@ -55,7 +55,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: SendRemainingValue+SendIgnoreErrors, 
+    mode: SendRemainingValue+SendIgnoreErrors+SendPayGasSeparately, 
     bounce: true, 
     body: msg_body
 });
