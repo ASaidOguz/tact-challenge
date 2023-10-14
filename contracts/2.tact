@@ -45,13 +45,13 @@ send(SendParameters{
     let msg_value:Int=ctx.value;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
-                           storeCoins(msg_value).
                            storeSlice(msg).
                            endCell();
 
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
                       storeAddress(sender_address).
+                      storeCoins(msg_value).
                       storeRef(forwarded_msg).
                       endCell();
 
