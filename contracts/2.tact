@@ -27,7 +27,7 @@ contract Task2 with Deployable {
 send(SendParameters{
     to: msg.sender,
     value: 0,
-    mode:SendRemainingValue,
+    mode:SendRemainingValue+SendRemainingBalance,
     bounce:false,
     body: beginCell().endCell()
 
@@ -46,7 +46,7 @@ send(SendParameters{
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell(). 
                       storeAddress(sender).
-                      //storeRef(forwarded_msg).
+                      storeRef(forwarded_msg).
                       endCell();
    
 
