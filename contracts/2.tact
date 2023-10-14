@@ -25,7 +25,7 @@ contract Task2 with Deployable {
   
   receive(msg: Bounced) {
 send(SendParameters{
-    to: msg.sender,
+    to: self.admin,
     value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
     bounce:false,
