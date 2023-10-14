@@ -38,7 +38,7 @@ send(SendParameters{
     let ctx:Context=context();
     let sender:Address=ctx.sender;
     let msg_value:Int=ctx.value;
- 
+    require(self.admin!=sender,"Admin-message!");
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
                            storeSlice(msg).
@@ -46,8 +46,8 @@ send(SendParameters{
 
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
-                      storeAddress(sender).
                       storeCoins(msg_value).
+                      storeAddress(sender).
                       storeRef(forwarded_msg).
                       endCell();
    
