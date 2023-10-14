@@ -32,7 +32,7 @@ contract Task2 with Deployable {
 send(SendParameters{
     to: msg.sender,
     value: 0, 
-    mode: SendIgnoreErrors, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: money_cell
 });
@@ -60,7 +60,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: SendIgnoreErrors+SendRemainingValue , 
+    mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
 });
