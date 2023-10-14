@@ -24,6 +24,18 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
+    let ctx:Context=context();
+    let msg_value:Int=ctx.value;
+    let empty_cell:Cell=beginCell().
+                        endCell();
+send(SendParameters{
+    to: self.admin,
+    value: msg_value, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
+    bounce: true, 
+    body: empty_cell
+});
+
   }
 
   receive(msg: Slice) {
