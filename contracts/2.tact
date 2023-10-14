@@ -30,8 +30,6 @@ contract Task2 with Deployable {
     let ctx:Context=context();
     let sender_address:Address=ctx.sender;
     let msg_value:Int=ctx.value;
-    require(self.admin!=sender_address,"Owner-message-Ignore");
-
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
                            storeSlice(msg).
@@ -50,9 +48,6 @@ send(SendParameters{
     bounce: true, 
     body: msg_body
 });
-
-
-
   }
 }
 
