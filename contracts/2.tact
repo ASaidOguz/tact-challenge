@@ -27,7 +27,7 @@ contract Task2 with Deployable {
 send(SendParameters{
     to: msg.sender,
     value: 0,
-    mode:SendRemainingBalance+SendIgnoreErrors,
+    mode:SendRemainingValue+SendIgnoreErrors,
     bounce:true,
     body: "Bounced".asComment()
 
@@ -53,7 +53,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: SendRemainingValue+SendIgnoreErrors, 
+    mode: SendRemainingValue, 
     bounce: true, 
     body: msg_body
 });
