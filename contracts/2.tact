@@ -33,7 +33,7 @@ send(SendParameters{
     to: msg.sender,
     value: 0, 
     mode: SendIgnoreErrors+SendPayGasSeparately, 
-    bounce: false, 
+    bounce: true, 
     body: money_cell
 });
 
