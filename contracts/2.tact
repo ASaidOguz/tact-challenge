@@ -24,28 +24,22 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
-    let ctx:Context=context();
-    let sender:Address=ctx.sender;
-    let msg_value:Int=ctx.value;
 send(SendParameters{
     to: msg.sender,
     value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
-    bounce:false,
+    bounce:true,
     body: beginCell().endCell()
 
 });
 
   }
 
-  receive(msg: Slice) {
-    let ctx:Context=context();
-    let sender:Address=ctx.sender;
-    let msg_value:Int=ctx.value;
-    
+  receive(msg: Slice) {  
+    let msg_raw:Slice=Context().raw;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
-                           storeSlice(msg).
+                           storeSlice(msg_raw).
                            endCell();
 
     //constract msg_body for forwarding msg;
