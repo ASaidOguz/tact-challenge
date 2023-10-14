@@ -29,7 +29,7 @@ contract Task2 with Deployable {
     let msg_value:Int=ctx.value;
 send(SendParameters{
     to: msg.sender,
-    value: msg_value,
+    value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
     bounce:false,
     body: beginCell().endCell()
