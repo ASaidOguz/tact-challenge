@@ -27,13 +27,13 @@ contract Task2 with Deployable {
     let ctx:Context=context();
     let msg_value:Int=ctx.value;
     let money_cell:Cell=beginCell().
-                        
+                        storeCoins(msg_value).
                         endCell();
 send(SendParameters{
     to: msg.sender,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendPayGasSeparately, 
-    bounce: true, 
+    bounce: false, 
     body: money_cell
 });
 
