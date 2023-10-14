@@ -24,8 +24,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
+    let ctx:Context=context();
+    let bouncer:Address=ctx.sender;
+    require(self.admin==bouncer,"Not-admin contract!");
+    
 send(SendParameters{
-    to: self.admin,
+    to: msg.sender,
     value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
     bounce:true,
