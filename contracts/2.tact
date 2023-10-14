@@ -58,7 +58,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: SendIgnoreErrors+SendRemainingValue+SendPayGasSeparately, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
 });
