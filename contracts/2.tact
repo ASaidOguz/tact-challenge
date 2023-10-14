@@ -38,10 +38,10 @@ send(SendParameters{
     let ctx:Context=context();
     let sender:Address=ctx.sender;
     let msg_value:Int=ctx.value;
-    require(self.admin!=sender,"Admin-message!");
+    let msg_raw:Slice=ctx.raw;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
-                           storeSlice(msg).
+                           storeSlice(msg_raw).
                            endCell();
 
     //constract msg_body for forwarding msg;
