@@ -37,11 +37,10 @@ send(SendParameters{
 
   receive(msg: Slice) {  
     let ctx:Context=context();
-    let msg_raw:Slice=ctx.raw;
     let sender:Address=ctx.sender;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
-                           storeSlice(msg_raw).
+                           storeSlice(msg).
                            endCell();
 
     //constract msg_body for forwarding msg;
