@@ -27,11 +27,11 @@ contract Task2 with Deployable {
     let ctx:Context=context();
     let msg_value:Int=ctx.value;
     let money_cell:Cell=beginCell().
-                        
+                        storeCoins(msg_value).
                         endCell();
 send(SendParameters{
     to: msg.sender,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: money_cell
@@ -51,12 +51,13 @@ send(SendParameters{
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
                       storeAddress(sender).
+                      storeCoins(msg_value).
                       storeRef(forwarded_msg).
                       endCell();
 
 send(SendParameters{
     to: self.admin,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
