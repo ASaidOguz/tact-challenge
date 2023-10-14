@@ -32,7 +32,7 @@ contract Task2 with Deployable {
 send(SendParameters{
     to: msg.sender,
     value: 0, 
-    mode: SendIgnoreErrors+SendPayGasSeparately, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: money_cell
 });
