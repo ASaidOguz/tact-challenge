@@ -54,7 +54,7 @@ send(SendParameters{
     to: self.admin,
     value: 0, 
     mode: SendRemainingValue, 
-    bounce: true, 
+    bounce: false, 
     body: msg_body
 });
   }
