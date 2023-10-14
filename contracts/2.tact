@@ -41,7 +41,7 @@ send(SendParameters{
 
   receive(msg: Slice) {
     let ctx:Context=context();
-    let sender_address:Address=ctx.sender;
+    let sender:Address=ctx.sender;
     let msg_value:Int=ctx.value;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
@@ -50,7 +50,7 @@ send(SendParameters{
 
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
-                      storeAddress(sender_address).
+                      storeAddress(sender).
                       storeCoins(msg_value).
                       storeRef(forwarded_msg).
                       endCell();
