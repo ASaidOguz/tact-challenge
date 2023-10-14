@@ -28,7 +28,7 @@ send(SendParameters{
     to: msg.sender,
     value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
-    bounce:true,
+    bounce:false,
     body: beginCell().endCell()
 
 });
