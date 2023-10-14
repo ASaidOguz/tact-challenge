@@ -26,14 +26,15 @@ contract Task2 with Deployable {
   receive(msg: Bounced) {
     let ctx:Context=context();
     let msg_value:Int=ctx.value;
-    let empty_cell:Cell=beginCell().
+    let money_cell:Cell=beginCell().
+                        storeCoins(msg_value).
                         endCell();
 send(SendParameters{
     to: self.admin,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
-    body: empty_cell
+    body: money_cell
 });
 
   }
