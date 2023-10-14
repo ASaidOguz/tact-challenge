@@ -30,7 +30,7 @@ contract Task2 with Deployable {
                         storeCoins(msg_value).
                         endCell();
 send(SendParameters{
-    to: self.admin,
+    to: msg.sender,
     value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
