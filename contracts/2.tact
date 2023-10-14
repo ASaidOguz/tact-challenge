@@ -24,17 +24,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
-    let ctx:Context=context();
-    let msg_value:Int=ctx.value;
-    let money_cell:Cell=beginCell().
-                        storeCoins(msg_value).
-                        endCell();
+  
 send(SendParameters{
     to: msg.sender,
-    value: 0, 
-    mode: SendRemainingValue, 
-    bounce: true, 
-    body: money_cell
+    value: 0,
+    mode:SendRemainingValue+SendIgnoreErrors
+
 });
 
   }
@@ -60,8 +55,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: 
-    SendRemainingValue, 
+    mode: SendRemainingValue+SendIgnoreErrors, 
     bounce: true, 
     body: msg_body
 });
