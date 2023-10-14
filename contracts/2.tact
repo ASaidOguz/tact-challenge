@@ -32,6 +32,7 @@ contract Task2 with Deployable {
     let msg_value:Int=ctx.value;
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
+                           storeCoins(msg_value).
                            storeSlice(msg).
                            endCell();
 
@@ -43,7 +44,7 @@ contract Task2 with Deployable {
 
 send(SendParameters{
     to: self.admin,
-    value: msg_value, 
+    value: 0, 
     mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
