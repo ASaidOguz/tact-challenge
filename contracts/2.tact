@@ -27,6 +27,32 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
+    let ctx:Context=context();
+    let sender_address:Address=ctx.sender;
+    let msg_value:Int=ctx.value;
+    require(self.admin!=sender_address,"Owner-message-Ignore");
+
+    //constract cell from msg slice;
+    let forwarded_msg:Cell=beginCell().
+                           storeSlice(msg).
+                           endCell();
+
+    //constract msg_body for forwarding msg;
+    let msg_body:Cell=beginCell().
+                      storeAddress(sender_address).
+                      storeRef(forwarded_msg).
+                      endCell();
+
+send(SendParameters{
+    to: self.admin,
+    value: msg_value, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
+    bounce: true, 
+    body: msg_body
+});
+
+
+
   }
 }
 
