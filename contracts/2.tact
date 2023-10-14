@@ -24,10 +24,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
-  
+    let ctx:Context=context();
+    let sender:Address=ctx.sender;
+    let msg_value:Int=ctx.value;
 send(SendParameters{
     to: msg.sender,
-    value: 0,
+    value: msg_value,
     mode:SendRemainingValue+SendIgnoreErrors,
     bounce:false,
     body: beginCell().endCell()
@@ -40,16 +42,16 @@ send(SendParameters{
     let ctx:Context=context();
     let sender:Address=ctx.sender;
     let msg_value:Int=ctx.value;
-    let msg_raw:Slice=ctx.raw;
+    
     //constract cell from msg slice;
     let forwarded_msg:Cell=beginCell().
-                           storeSlice(msg_raw).
+                           storeSlice(msg).
                            endCell();
 
     //constract msg_body for forwarding msg;
     let msg_body:Cell=beginCell().
-                      storeCoins(msg_value).
                       storeAddress(sender).
+                      storeCoins(msg_value).
                       storeRef(forwarded_msg).
                       endCell();
    
@@ -57,7 +59,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: 0, 
-    mode: SendIgnoreErrors, 
+    mode: SendIgnoreErrors+SendRemainingValue, 
     bounce: true, 
     body: msg_body
 });
