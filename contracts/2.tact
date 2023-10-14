@@ -60,7 +60,7 @@ send(SendParameters{
 send(SendParameters{
     to: self.admin,
     value: value, 
-    mode: SendIgnoreErrors+SendRemaingValue, 
+    mode: SendIgnoreErrors, 
     bounce: true, 
     body: msg_body
 });
