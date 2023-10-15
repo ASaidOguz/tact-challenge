@@ -67,7 +67,7 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    let ctx:Context=context();
+  let ctx:Context=context();
   require(ctx.sender==self.jettonAddressA||ctx.sender==self.jettonAddressB,"Unauthorized-jetton!!");
   if(msg.from==self.owner){
     if(ctx.sender==self.jettonAddressA){
@@ -77,11 +77,33 @@ contract Task3 with Deployable {
     }
    return;
   }
-
-
-
+  if(ctx.sender==self.jettonAddressA){
+   let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
+   if(swapAmount<msg.amount)
+   {
+    //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
+   }else{
+    //complete swaping and send transfer message
+   }
+  }
+  else
+  {
+   let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
+   if(swapAmount<msg.amount){
+    //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
+   }else{
+    //complete swaping and send transfer message
+   }
+  }
   } 
-  
+  //calculate the jetton price according to jetton-swap
+  fun calculate_price(jetton:Address,amount:Int): Int{
+    if(jetton==self.jettonAddressA){
+      return (self.aAmount * self.decimal / self.bAmount)*amount / self.decimal;
+    }else{
+      return (self.bAmount * self.decimal / self.aAmount)*amount / self.decimal;
+    }
+  }
   get fun price(jetton: Address): Int { 
      let price:Int=0;
      let decimal:Int=self.decimal;
