@@ -67,9 +67,7 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-  let ctx:Context=context();
-  let sender:Address=ctx.sender;
-  require(sender==self.jettonAddressA||sender==self.jettonAddressB,"Unauthorized-jetton!!");
+  require(msg.from==self.jettonAddressA||msg.from==self.jettonAddressB,"Unauthorized-jetton!!");
 
 
 
