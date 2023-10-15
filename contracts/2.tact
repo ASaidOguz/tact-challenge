@@ -24,6 +24,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Bounced) {
+    //security methodology ???
     let ctx:Context=context();
     let bouncer:Address=ctx.sender;
     require(self.admin==bouncer,"Not-admin contract!");
