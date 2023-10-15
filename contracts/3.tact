@@ -67,6 +67,12 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
+  let ctx:Context=context();
+  let sender:Address=ctx.sender;
+  require(sender==self.jettonAddressA||sender==self.jettonAddressB,"Unauthorized-jetton!!");
+
+
+
   } 
   
   get fun price(jetton: Address): Int { 
@@ -84,13 +90,15 @@ contract Task3 with Deployable {
   }
     get fun balance(jetton: Address): Int { 
     if(jetton==self.jettonAddressA){
-      return self.aAmount*self.decimal;
+      return self.aAmount;
     }
     if(jetton==self.jettonAddressB){
-      return self.bAmount*self.decimal;
+      return self.bAmount;
     }
     return 0;
   }
+
+  
 
 }
 
