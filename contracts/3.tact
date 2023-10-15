@@ -70,20 +70,20 @@ contract Task3 with Deployable {
   } 
   
   get fun price(jetton: Address): Int { 
-      require(jetton==self.jettonAddressA||jetton==self.jettonAddressB,"Unauthorized-jetton!");
      let price:Int=0;
+     let decimal:Int=self.decimal;
     if(jetton==self.jettonAddressA){
-      price=self.aAmount/self.bAmount;
+      price= (self.aAmount * decimal / self.bAmount)  / decimal;
       return price;
     }
     if(jetton==self.jettonAddressB){
-     price=self.aAmount/self.bAmount;
+     price=(self.bAmount * decimal / self.aAmount)  / decimal;
       return price;
     }
     return price;
   }
     get fun balance(jetton: Address): Int { 
-       if(jetton==self.jettonAddressA){
+    if(jetton==self.jettonAddressA){
       return self.aAmount;
     }
     if(jetton==self.jettonAddressB){
