@@ -46,23 +46,34 @@ message NftWithdrawal {
 
 contract Task4 with Deployable {
   seed: Int as uint128;
-  
+  prevowner: Address?;
+  lockedNftAddeess: Address?;
   init(seed: Int) {
     self.seed = seed;
   }
 
+  //locking nft message here...
   receive(msg: OwnershipAssigned) {
+    let ctx:Context=context();
+
+    self.prevowner=msg.prevOwner;
+    self.lockedNftAddeess=ctx.sender;
+    
   }
 
+  //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
   }
 
   get fun time(): Int {
+    return 0;
   }
 
   get fun nft(): Address? {
+    return self.lockedNftAddeess;
   }
 
   get fun owner(): Address? {
+    return self.prevowner;
   }
 }
