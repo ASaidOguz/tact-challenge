@@ -76,6 +76,7 @@ contract Task4 with Deployable {
     self.lockedNftAddress=sender();
     self.timeOfLock=now();
     self.lockingTime=msg.forwardPayload.loadUint(32);
+    return;
   }
 
   //try to withdrawal the nft if conditions r met...
