@@ -81,7 +81,7 @@ contract Task3 with Deployable {
       return;
     }
   
-  }
+  }else{
   if(ctx.sender==self.jettonAddressA){
    let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
    if(swapAmount>self.bAmount)
@@ -93,8 +93,9 @@ contract Task3 with Deployable {
    }
     //complete swaping and send transfer message
     let message2:String="Swap completed!";
+     self.bAmount=self.bAmount-swapAmount;
     self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0,message2);
-    self.bAmount=self.bAmount-swapAmount;
+   
     return;
    
   }
@@ -109,12 +110,12 @@ contract Task3 with Deployable {
    }
     //complete swaping and send transfer message
     let message2:String="Swap completed!";
-    self.transferJettonToSender(self.jettonAddressA,msg.from,swapAmount,0,message2);
     self.aAmount=self.aAmount-swapAmount;
+    self.transferJettonToSender(self.jettonAddressA,msg.from,swapAmount,0,message2);
     return;
    
   }
-  
+  }
  }
 
   //calculate the jetton price according to --->problematic
