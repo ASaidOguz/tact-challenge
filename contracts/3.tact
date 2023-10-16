@@ -144,20 +144,20 @@ contract Task3 with Deployable {
         
     }
   get fun price(jetton: Address): Int { 
-/*      let price:Int=0;
+     let price:Int=0;
      let decimal:Int=self.decimal;
      let aAmount:Int=self.aAmount;
      let bAmount:Int=self.bAmount;
 
     if(jetton==self.jettonAddressA){
-      price= ((bAmount * decimal / aAmount)) ;
+      price= ((aAmount * decimal / aAmount)) ;
       return price;
     }
     if(jetton==self.jettonAddressB){
-     price=((aAmount * decimal) / bAmount)  ;
+     price=((aAmount * decimal) / aAmount)  ;
       return price;
     }
-    return price; */
+    return price;
     return 0;
   }
     get fun balance(jetton: Address): Int { 
