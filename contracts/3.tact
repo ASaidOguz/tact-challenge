@@ -69,7 +69,7 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-/*   let ctx:Context=context();
+  let ctx:Context=context();
   //require(ctx.sender==self.jettonAddressA||ctx.sender==self.jettonAddressB,"Unauthorized-jetton!!");
   
   if(msg.from==self.owner){
@@ -79,7 +79,7 @@ contract Task3 with Deployable {
       self.bAmount=self.bAmount+msg.amount;
     }
    return;
-  }
+  }else{
   if(ctx.sender==self.jettonAddressA){
    let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
    if(swapAmount>self.bAmount)
@@ -111,7 +111,7 @@ contract Task3 with Deployable {
     self.aAmount=self.aAmount-swapAmount;
     return;
    }
-  }
+  }}
   } 
   //calculate the jetton price according to --->problematic
   fun calculate_price(jetton:Address,amount:Int): Int{
@@ -135,7 +135,7 @@ contract Task3 with Deployable {
                                     customPayload: message.asComment(), 
                                     forwardTonAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
-            }); */
+            });
         
     }
   get fun price(jetton: Address): Int { 
