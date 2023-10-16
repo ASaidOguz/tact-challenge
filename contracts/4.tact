@@ -83,7 +83,7 @@ contract Task4 with Deployable {
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
     
-    require(sender()==self.prevowner,"Wrong-owner");
+    require(sender()==self.prevowner!!,"Invalid sender");
     if(self.nftUnlocked()){
            send(SendParameters{
                 to: self.lockedNftAddress!!,
