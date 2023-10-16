@@ -116,7 +116,7 @@ contract Task4 with Deployable {
   }
   // absolute real values ??? use !! for setting it??
   get fun time(): Int {
-    if(timeOfLock==null){
+    if(self.timeOfLock==null){
       return 0;
     }
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
