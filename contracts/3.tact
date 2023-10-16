@@ -71,14 +71,14 @@ contract Task3 with Deployable {
   receive(msg: TokenNotification) {
   let ctx:Context=context();
   //require(ctx.sender==self.jettonAddressA||ctx.sender==self.jettonAddressB,"Unauthorized-jetton!!");
-  if(msg.from==self.owner){
+ /*  if(msg.from==self.owner){
     if(ctx.sender==self.jettonAddressA){
       self.aAmount=self.aAmount+msg.amount;
     }else{
       self.bAmount=self.bAmount+msg.amount;
     }
    return;
-  }
+  } */
   if(ctx.sender==self.jettonAddressA){
    let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
    if(swapAmount<msg.amount)
