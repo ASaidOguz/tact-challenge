@@ -96,7 +96,7 @@ contract Task3 with Deployable {
    }
   }
   } 
-  //calculate the jetton price according to jetton-swap
+  //calculate the jetton price according to 
   fun calculate_price(jetton:Address,amount:Int): Int{
     if(jetton==self.jettonAddressA){
       return (self.aAmount * self.decimal / self.bAmount)*amount / self.decimal;
@@ -107,12 +107,15 @@ contract Task3 with Deployable {
   get fun price(jetton: Address): Int { 
      let price:Int=0;
      let decimal:Int=self.decimal;
+     let aAmount:Int=self.aAmount;
+     let bAmount:Int=self.bAmount;
+
     if(jetton==self.jettonAddressA){
-      price= (self.aAmount * decimal / self.bAmount)  / decimal;
+      price= (aAmount * decimal / bAmount)  / decimal;
       return price;
     }
     if(jetton==self.jettonAddressB){
-     price=(self.bAmount * decimal / self.aAmount)  / decimal;
+     price=(bAmount * decimal / aAmount)  / decimal;
       return price;
     }
     return price;
