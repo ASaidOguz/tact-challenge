@@ -73,7 +73,7 @@ contract Task4 with Deployable {
             return;
     }
     self.prevowner=msg.prevOwner;
-    self.lockedNftAddress=ctx.sender;
+    self.lockedNftAddress=sender();
     self.timeOfLock=now();
     self.lockingTime=msg.forwardPayload.loadUint(32);
   }
