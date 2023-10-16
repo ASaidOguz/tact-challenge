@@ -60,8 +60,7 @@ contract Task4 with Deployable {
   receive(msg: OwnershipAssigned) {
     let ctx:Context=context();
     
-    if(self.prevowner != null){
-     let message:String="Already-nft-locked!";
+    if(self.prevowner != newAddress(0,0)){
      send(SendParameters{
                 to: ctx.sender,
                 value: 0,
