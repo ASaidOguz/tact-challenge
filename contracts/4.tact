@@ -49,7 +49,7 @@ contract Task4 with Deployable {
   seed: Int as uint128;
 
   prevowner: Address?;
-  lockedNftAddeess: Address?;
+  lockedNftAddress: Address?;
   timeOfLock: Int? as int128;
   lockingTime: Int? as int128;
   init(seed: Int) {
@@ -75,13 +75,40 @@ contract Task4 with Deployable {
             return;
     }
     self.prevowner=msg.prevOwner;
-    self.lockedNftAddeess=ctx.sender;
+    self.lockedNftAddress=ctx.sender;
     self.timeOfLock=now();
     self.lockingTime=msg.forwardPayload.loadUint(32);
   }
 
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
+    
+    require(sender()==self.prevowner,"Wrong-owner");
+    require(msg.nftAddress==self.lockedNftAddress,"Wrong-nftAddress");
+    if(!self.nftUnlocked()){
+      self.reply("NFT is still locked".asComment());
+    }else{
+           send(SendParameters{
+                to: self.lockedNftAddress!!,
+                value: 0,
+                mode: SendRemainingValue,
+                body: Transfer{     queryId: self.seed, 
+                                    newOwner: self.prevowner!!,
+                                    responseDestination: self.prevowner!!, 
+                                    customPayload: null, 
+                                    forwardAmount: self.forward_ton_amount, 
+                                    forwardPayload: emptySlice()}.toCell()
+            });
+            return;
+    }
+  }
+
+  fun nftUnlocked():Bool{
+    let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
+    if(time_remaining>0){
+      return true;
+    }
+    return false;
   }
   // absolute real values ??? use !! for setting it??
   get fun time(): Int {
@@ -93,7 +120,7 @@ contract Task4 with Deployable {
   }
 
   get fun nft(): Address? {
-    return self.lockedNftAddeess;
+    return self.lockedNftAddress;
   }
 
   get fun owner(): Address? {
