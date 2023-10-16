@@ -158,7 +158,7 @@ contract Task3 with Deployable {
       return price;
     }
     return price;
-    return 0;
+   
   }
     get fun balance(jetton: Address): Int { 
     if(jetton==self.jettonAddressA){
