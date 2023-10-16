@@ -144,7 +144,7 @@ contract Task3 with Deployable {
         
     }
   get fun price(jetton: Address): Int { 
-     let price:Int=0;
+/*      let price:Int=0;
      let decimal:Int=self.decimal;
      let aAmount:Int=self.aAmount;
      let bAmount:Int=self.bAmount;
@@ -165,7 +165,7 @@ contract Task3 with Deployable {
     }
     if(jetton==self.jettonAddressB){
       return self.bAmount;
-    }
+    } */
     return 0;
   }
 
