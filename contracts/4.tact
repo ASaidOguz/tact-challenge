@@ -59,7 +59,7 @@ contract Task4 with Deployable {
   //locking nft message here...
   receive(msg: OwnershipAssigned) { 
     if(self.prevowner !=null){
-     send(SendParameters{
+ /*     send(SendParameters{
                 to: sender(),
                 value: 0,
                 mode: SendIgnoreErrors,
@@ -69,7 +69,7 @@ contract Task4 with Deployable {
                                     customPayload: null, 
                                     forwardAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
-            });
+            }); */
             return;
     }
     self.prevowner=msg.prevOwner;
