@@ -45,7 +45,7 @@ message NftWithdrawal {
 }
 
 contract Task4 with Deployable {
-  const forward_ton_amount: Int = ton("0.1");
+  const forward_ton_amount: Int = ton("0.05");
   seed: Int as uint128;
 
   prevowner: Address?;
@@ -62,7 +62,7 @@ contract Task4 with Deployable {
      send(SendParameters{
                 to: sender(),
                 value: 0,
-                mode: SendRemainingValue+SendIgnoreErrors,
+                mode: SendIgnoreErrors,
                 body: Transfer{     queryId: msg.queryId, 
                                     newOwner: msg.prevOwner,
                                     responseDestination: msg.prevOwner, 
