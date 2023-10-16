@@ -45,9 +45,13 @@ message NftWithdrawal {
 }
 
 contract Task4 with Deployable {
+  const forward_ton_amount: Int = ton("0.001");
   seed: Int as uint128;
+
   prevowner: Address?;
   lockedNftAddeess: Address?;
+  timeOfLock: Int? as int128;
+  lockingTime: Int? as int128;
   init(seed: Int) {
     self.seed = seed;
   }
@@ -55,18 +59,37 @@ contract Task4 with Deployable {
   //locking nft message here...
   receive(msg: OwnershipAssigned) {
     let ctx:Context=context();
-
+    let message:String="Already-nft-locked!";
+    if(self.prevowner != null){
+     send(SendParameters{
+                to: ctx.sender,
+                value: 0,
+                mode: SendRemainingValue,
+                body: Transfer{     queryId: self.seed, 
+                                    newOwner: msg.prevOwner,
+                                    responseDestination: msg.prevOwner, 
+                                    customPayload: message.asComment(), 
+                                    forwardAmount: self.forward_ton_amount, 
+                                    forwardPayload: emptySlice()}.toCell()
+            });
+            return;
+    }
     self.prevowner=msg.prevOwner;
     self.lockedNftAddeess=ctx.sender;
-    
+    self.timeOfLock=now();
+    self.lockingTime=msg.forwardPayload.loadUint(32);
   }
 
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
   }
-
+  // absolute real values ??? use !! for setting it??
   get fun time(): Int {
-    return 0;
+    let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
+    if(time_remaining>0){
+      return 0;
+    }
+    return time_remaining;
   }
 
   get fun nft(): Address? {
