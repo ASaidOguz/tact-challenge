@@ -57,12 +57,10 @@ contract Task4 with Deployable {
   }
 
   //locking nft message here...
-  receive(msg: OwnershipAssigned) {
-    let ctx:Context=context();
-    
+  receive(msg: OwnershipAssigned) { 
     if(self.prevowner !=null){
      send(SendParameters{
-                to: ctx.sender,
+                to: sender(),
                 value: 0,
                 mode: SendRemainingValue+SendIgnoreErrors,
                 body: Transfer{     queryId: msg.queryId, 
@@ -83,7 +81,7 @@ contract Task4 with Deployable {
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
     
-    require(sender()==self.prevowner!!,"Invalid sender");
+    require(sender()==self.prevowner,"Invalid sender");
     if(self.nftUnlocked()){
            send(SendParameters{
                 to: self.lockedNftAddress!!,
