@@ -85,9 +85,7 @@ contract Task4 with Deployable {
     
     require(sender()==self.prevowner,"Wrong-owner");
     require(msg.nftAddress==self.lockedNftAddress,"Wrong-nftAddress");
-    if(!self.nftUnlocked()){
-      self.reply("NFT is still locked".asComment());
-    }else{
+    if(self.nftUnlocked()){
            send(SendParameters{
                 to: self.lockedNftAddress!!,
                 value: 0,
@@ -100,6 +98,10 @@ contract Task4 with Deployable {
                                     forwardPayload: emptySlice()}.toCell()
             });
             return;
+    }else{
+      
+      self.reply("NFT is still locked".asComment());
+      return;
     }
   }
 
