@@ -59,8 +59,9 @@ contract Task4 with Deployable {
   //locking nft message here...
   receive(msg: OwnershipAssigned) {
     let ctx:Context=context();
-    let message:String="Already-nft-locked!";
+    
     if(self.prevowner != null){
+     let message:String="Already-nft-locked!";
      send(SendParameters{
                 to: ctx.sender,
                 value: 0,
@@ -68,7 +69,7 @@ contract Task4 with Deployable {
                 body: Transfer{     queryId: self.seed, 
                                     newOwner: msg.prevOwner,
                                     responseDestination: msg.prevOwner, 
-                                    customPayload: message.asComment(), 
+                                    customPayload: null, 
                                     forwardAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
             });
