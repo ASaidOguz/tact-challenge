@@ -96,8 +96,8 @@ contract Task4 with Deployable {
             });
             self.lockedNftAddress=null;
             self.prevowner=null;
-            self.lockingTime=0;
-            self.timeOfLock=0;
+            self.lockingTime=null;
+            self.timeOfLock=null;
             return;
     }else{
       
@@ -108,7 +108,7 @@ contract Task4 with Deployable {
 
   fun nftUnlocked(): Bool{
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
-    if(time_remaining >= 0){
+    if(time_remaining > 0){
       return true;
     }
     return false;
@@ -116,7 +116,7 @@ contract Task4 with Deployable {
   // absolute real values ??? use !! for setting it??
   get fun time(): Int {
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
-    if(time_remaining >= 0){
+    if(time_remaining > 0){
       return 0;
     }
     return (time_remaining)*(-1);
