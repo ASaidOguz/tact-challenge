@@ -94,6 +94,8 @@ contract Task4 with Deployable {
                                     forwardAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
             });
+            self.lockedNftAddress=null;
+            self.prevowner=null;
             return;
     }else{
       
