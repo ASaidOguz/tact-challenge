@@ -60,7 +60,7 @@ contract Task4 with Deployable {
   receive(msg: OwnershipAssigned) {
     let ctx:Context=context();
     
-    if(self.prevowner != newAddress(0,0)){
+    if(self.prevowner !=null){
      send(SendParameters{
                 to: ctx.sender,
                 value: 0,
@@ -84,7 +84,6 @@ contract Task4 with Deployable {
   receive(msg: NftWithdrawal) {
     
     require(sender()==self.prevowner,"Wrong-owner");
-    require(msg.nftAddress==self.lockedNftAddress,"Wrong-nftAddress");
     if(self.nftUnlocked()){
            send(SendParameters{
                 to: self.lockedNftAddress!!,
