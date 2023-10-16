@@ -118,9 +118,9 @@ contract Task3 with Deployable {
   //calculate the jetton price according to --->problematic
   fun calculate_price(jetton:Address,amount:Int): Int{
     if(jetton==self.jettonAddressB){
-      return (self.aAmount * self.decimal / self.bAmount)*amount / self.decimal;
-    }else{
       return (self.bAmount * self.decimal / self.aAmount)*amount / self.decimal;
+    }else{
+      return (self.aAmount * self.decimal / self.bAmount)*amount / self.decimal;
     }
   }
 
