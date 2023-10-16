@@ -64,7 +64,7 @@ contract Task4 with Deployable {
      send(SendParameters{
                 to: ctx.sender,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingValue+SendIgnoreErrors,
                 body: Transfer{     queryId: self.seed, 
                                     newOwner: msg.prevOwner,
                                     responseDestination: msg.prevOwner, 
@@ -88,7 +88,7 @@ contract Task4 with Deployable {
            send(SendParameters{
                 to: self.lockedNftAddress!!,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingValue+SendIgnoreErrors,
                 body: Transfer{     queryId: self.seed, 
                                     newOwner: self.prevowner!!,
                                     responseDestination: self.prevowner!!, 
@@ -104,7 +104,7 @@ contract Task4 with Deployable {
     }
   }
 
-  fun nftUnlocked():Bool{
+  fun nftUnlocked(): Bool{
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
     if(time_remaining>0){
       return true;
