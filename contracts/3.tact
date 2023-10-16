@@ -147,11 +147,11 @@ contract Task3 with Deployable {
      let bAmount:Int=self.bAmount;
 
     if(jetton==self.jettonAddressA){
-      price= ((aAmount * decimal / bAmount))  / decimal;
+      price= ((aAmount * decimal / bAmount)) ;
       return price;
     }
     if(jetton==self.jettonAddressB){
-     price=((bAmount * decimal) / aAmount)  / decimal;
+     price=((bAmount * decimal) / aAmount)  ;
       return price;
     }
     return price;
