@@ -96,8 +96,8 @@ contract Task4 with Deployable {
             });
             self.lockedNftAddress=null;
             self.prevowner=null;
-/*             self.lockingTime=0;
-            self.timeOfLock=0; */
+            self.lockingTime=0;
+            self.timeOfLock=0;
             return;
     }else{
       
