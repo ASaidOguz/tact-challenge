@@ -81,7 +81,7 @@ contract Task4 with Deployable {
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
     
-    require(sender()==self.prevowner,"Invalid sender");
+ /*    require(sender()==self.prevowner,"Invalid sender");
     if(self.nftUnlocked()){
            send(SendParameters{
                 to: self.lockedNftAddress!!,
@@ -101,7 +101,7 @@ contract Task4 with Deployable {
       
       self.reply("NFT is still locked".asComment());
       return;
-    }
+    } */
   }
 
   fun nftUnlocked(): Bool{
