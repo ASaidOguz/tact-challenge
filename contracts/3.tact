@@ -50,6 +50,8 @@ message(0xf8a7ea5) TokenTransfer {
 }
 
 contract Task3 with Deployable {
+  const forward_ton_amount: Int = ton("0.000001");
+
   owner: Address;
   aAmount: Int;
   bAmount: Int;
@@ -82,8 +84,15 @@ contract Task3 with Deployable {
    if(swapAmount<msg.amount)
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
+    let message1:String="Not enough jetton in DEX!";
+    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0,message1);
+    return;
    }else{
     //complete swaping and send transfer message
+    let message2:String="Swap completed!";
+    self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0,message2);
+    self.bAmount=self.bAmount-swapAmount;
+    return;
    }
   }
   else
@@ -91,8 +100,15 @@ contract Task3 with Deployable {
    let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
    if(swapAmount<msg.amount){
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
+    let message:String="Not enough jetton in DEX!";
+    self.transferJettonToSender(self.jettonAddressB,msg.from,msg.amount,0,message);
+    return;
    }else{
     //complete swaping and send transfer message
+    let message2:String="Swap completed!";
+    self.transferJettonToSender(self.jettonAddressA,msg.from,swapAmount,0,message2);
+    self.aAmount=self.aAmount-swapAmount;
+    return;
    }
   }
   } 
@@ -104,6 +120,23 @@ contract Task3 with Deployable {
       return (self.bAmount * self.decimal / self.aAmount)*amount / self.decimal;
     }
   }
+
+      fun transferJettonToSender(jetton_wallet: Address, destination: Address, amount: Int, query_id: Int, message: String) {
+        
+            send(SendParameters{
+                to: jetton_wallet,
+                value: 0,
+                mode: SendRemainingValue,
+                body: TokenTransfer{queryId: query_id, 
+                                    amount: amount, 
+                                    destination: destination, 
+                                    responseDestination: destination, 
+                                    customPayload: message.asComment(), 
+                                    forwardTonAmount: self.forward_ton_amount, 
+                                    forwardPayload: emptySlice()}.toCell()
+            });
+        
+    }
   get fun price(jetton: Address): Int { 
      let price:Int=0;
      let decimal:Int=self.decimal;
