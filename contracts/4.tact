@@ -45,7 +45,7 @@ message NftWithdrawal {
 }
 
 contract Task4 with Deployable {
-  const forward_ton_amount: Int =ton("0.05");
+  const forward_ton_amount: Int =ton("0.5");
   seed: Int as uint128;
 
   prevowner: Address?;
