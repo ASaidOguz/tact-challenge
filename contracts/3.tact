@@ -69,7 +69,7 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-  let ctx:Context=context();
+/*   let ctx:Context=context();
   //require(ctx.sender==self.jettonAddressA||ctx.sender==self.jettonAddressB,"Unauthorized-jetton!!");
   
   if(msg.from==self.owner){
@@ -135,7 +135,7 @@ contract Task3 with Deployable {
                                     customPayload: message.asComment(), 
                                     forwardTonAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
-            });
+            }); */
         
     }
   get fun price(jetton: Address): Int { 
