@@ -117,7 +117,7 @@ contract Task4 with Deployable {
     if(time_remaining>0){
       return 0;
     }
-    return time_remaining;
+    return (time_remaining)*(-1);
   }
 
   get fun nft(): Address? {
