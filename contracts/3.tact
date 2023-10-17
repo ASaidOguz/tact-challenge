@@ -70,8 +70,8 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
   
-  //require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Invalid jetton");
-  
+  require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Invalid jetton");
+  require(msg.amount!=0,"Amount can't be zero!!");
   if(msg.from==self.owner){
     if(sender()==self.jettonAddressA){
       self.aAmount=self.aAmount+msg.amount;
