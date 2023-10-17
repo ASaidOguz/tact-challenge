@@ -111,7 +111,7 @@ contract Task4 with Deployable {
       return;
     }
   }
-
+  //unlock logic -> equal 0 ??
   fun nftUnlocked(): Bool{
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
     if(time_remaining >= 0){
