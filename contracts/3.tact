@@ -70,7 +70,7 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
   
-  require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Unauthorized-jetton!!");
+  require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Invalid jetton");
   
   if(msg.from==self.owner){
     if(sender()==self.jettonAddressA){
@@ -87,14 +87,14 @@ contract Task3 with Deployable {
    if(swapAmount>=self.bAmount)
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
-    let message1:String="Not enough jetton in DEX!";
-    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0,message1);
+    //let message1:String="Not enough jetton in DEX!";
+    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
     return;
    }
     //complete swaping and send transfer message
-    let message2:String="Swap completed!";
+    //let message2:String="Swap completed!";
      self.bAmount=self.bAmount-swapAmount;
-    self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0,message2);
+    self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
    
     return;
    
@@ -130,17 +130,17 @@ contract Task3 with Deployable {
     
   }
 
-      fun transferJettonToSender(jetton_wallet: Address, destination: Address, amount: Int, query_id: Int, message: String) {
+      fun transferJettonToSender(jetton_wallet: Address, destination: Address, amount: Int, query_id: Int) {
         
             send(SendParameters{
                 to: jetton_wallet,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingValue+SendIgnoreErrors,
                 body: TokenTransfer{queryId: query_id, 
                                     amount: amount, 
                                     destination: destination, 
                                     responseDestination: destination, 
-                                    customPayload: message.asComment(), 
+                                    customPayload: null, 
                                     forwardTonAmount: 0, 
                                     forwardPayload: emptySlice()}.toCell()
             });
