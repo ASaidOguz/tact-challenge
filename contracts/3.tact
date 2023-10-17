@@ -56,7 +56,7 @@ message(0xf8a7ea5) TokenTransfer {
 }
 
 contract Task3 with Deployable {
-  const forward_ton_amount: Int = ton("0.001");
+  const forward_ton_amount: Int = ton("0.01");
 
   owner: Address;
   aAmount: Int;
@@ -156,7 +156,7 @@ contract Task3 with Deployable {
                                     destination: destination, 
                                     responseDestination: destination, 
                                     customPayload: null, 
-                                    forwardTonAmount: 0, 
+                                    forwardTonAmount: self.forward_ton_amount, 
                                     forwardPayload: emptySlice()}.toCell()
             });
         
