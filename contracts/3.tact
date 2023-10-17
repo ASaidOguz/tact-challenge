@@ -93,14 +93,13 @@ contract Task3 with Deployable {
    
    if(swapAmount > self.bAmount)
    {
-    //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap... 
+    //tranfer back the jetton to sender of the jetton cause DEX doesnt have enough for swap... 
     self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0);
     return;
    }
    else
    {
     //complete swaping and send transfer message...
-
      self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
      self.bAmount=self.bAmount-swapAmount;
      self.aAmount=self.aAmount+msg.amount;
@@ -108,11 +107,10 @@ contract Task3 with Deployable {
    }
   }
   else{
-  let swapAmount:Int = self.calculate_price(self.jettonAddressA,msg.amount);
+  let swapAmount:Int = self.calculate_price(self.jettonAddressB,msg.amount);
   
    if(swapAmount > self.aAmount){
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
-   
     self.transferJettonToSender(self.jettonAddressB,msg.from,msg.amount,0);
     return;
    }
