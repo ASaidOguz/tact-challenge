@@ -56,7 +56,7 @@ message(0xf8a7ea5) TokenTransfer {
 }
 
 contract Task3 with Deployable {
-  const forward_ton_amount: Int = ton("5");
+  const forward_ton_amount: Int = ton("0.0001");
 
   owner: Address;
   aAmount: Int;
