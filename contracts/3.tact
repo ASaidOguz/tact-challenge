@@ -86,7 +86,6 @@ contract Task3 with Deployable {
       self.bAmount=self.bAmount+msg.amount;
       return;
     }
-  
   }
   else
   {
@@ -95,15 +94,13 @@ contract Task3 with Deployable {
    
    if(swapAmount>self.bAmount)
    {
-    //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
-    
+    //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap... 
     self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0);
     return;
    }
    else
    {
-    //complete swaping and send transfer message
-    //let message2:String="Swap completed!";
+    //complete swaping and send transfer message...
      self.bAmount=self.bAmount-swapAmount;
      self.aAmount=self.aAmount+msg.amount;
      self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
@@ -112,9 +109,9 @@ contract Task3 with Deployable {
    }
   }
   else{
-    let swapAmount:Int = self.calculate_price(self.jettonAddressA,msg.amount);
+  let swapAmount:Int = self.calculate_price(self.jettonAddressA,msg.amount);
   
-   if(swapAmount>self.aAmount){
+   if(swapAmount > self.aAmount){
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
    
     self.transferJettonToSender(self.jettonAddressB,msg.from,msg.amount,0);
@@ -149,7 +146,7 @@ contract Task3 with Deployable {
             send(SendParameters{
                 to: jetton_wallet,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingValue+SendIgnoreErrors,
                 body: TokenTransfer{queryId: query_id, 
                                     amount: amount, 
                                     destination: destination, 
