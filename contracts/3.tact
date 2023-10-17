@@ -70,7 +70,7 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
   
-  require(sender()==self.jettonAddressA||senders()==self.jettonAddressB,"Unauthorized-jetton!!");
+  require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Unauthorized-jetton!!");
   
   if(msg.from==self.owner){
     if(sender()==self.jettonAddressA){
