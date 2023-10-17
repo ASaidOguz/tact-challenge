@@ -87,7 +87,9 @@ contract Task3 with Deployable {
       return;
     }
   
-  }else{
+  }
+  else
+  {
   if(sender()==self.jettonAddressA){
    let swapAmount:Int=self.calculate_price(self.jettonAddressA,msg.amount);
    if(swapAmount>self.bAmount)
@@ -97,6 +99,8 @@ contract Task3 with Deployable {
     self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
     return;
    }
+   else
+   {
     //complete swaping and send transfer message
     //let message2:String="Swap completed!";
      self.bAmount=self.bAmount-swapAmount;
@@ -104,7 +108,7 @@ contract Task3 with Deployable {
      self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
    
     return;
-   
+   }
   }
   else{
   
@@ -115,6 +119,8 @@ contract Task3 with Deployable {
     self.transferJettonToSender(self.jettonAddressB,msg.from,msg.amount,msg.queryId);
     return;
    }
+   else
+   {
     //complete swaping and send transfer message
     //let message2:String="Swap completed!";
     
@@ -122,7 +128,7 @@ contract Task3 with Deployable {
     self.aAmount=self.aAmount-swapAmount;
     self.bAmount=self.bAmount+msg.amount;
     return;
-   
+   }
   }
   }
  }
@@ -144,7 +150,7 @@ contract Task3 with Deployable {
             send(SendParameters{
                 to: jetton_wallet,
                 value: 0,
-                mode: SendRemainingValue+SendIgnoreErrors,
+                mode: SendIgnoreErrors,
                 body: TokenTransfer{queryId: query_id, 
                                     amount: amount, 
                                     destination: destination, 
