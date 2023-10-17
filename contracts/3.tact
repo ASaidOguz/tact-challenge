@@ -100,10 +100,10 @@ contract Task3 with Deployable {
    else
    {
     //complete swaping and send transfer message...
+
+     self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
      self.bAmount=self.bAmount-swapAmount;
      self.aAmount=self.aAmount+msg.amount;
-     //self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
-   
     return;
    }
   }
@@ -130,8 +130,7 @@ contract Task3 with Deployable {
 
   //calculate the jetton price according to --->problematic
   fun calculate_price(jetton:Address,amount:Int): Int{
-    if(self.aAmount==0||self.bAmount==0) 
-    {return pow(2,255);}
+
     if(jetton==self.jettonAddressB){
       return (((self.aAmount * self.decimal) / self.bAmount)*amount) / self.decimal;
     }
@@ -158,6 +157,7 @@ contract Task3 with Deployable {
             });
         
     }
+
   get fun price(jetton: Address): Int { 
      let price:Int=0;
      let decimal:Int=self.decimal;
@@ -175,6 +175,7 @@ contract Task3 with Deployable {
     return price;
   
   }
+
     get fun balance(jetton: Address): Int { 
     if(jetton==self.jettonAddressA){
       return self.aAmount;
