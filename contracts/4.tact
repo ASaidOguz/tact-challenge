@@ -112,10 +112,10 @@ contract Task4 with Deployable {
 
   fun nftUnlocked(): Bool{
     let time_remaining:Int=now()-(self.lockingTime!!+self.timeOfLock!!);
-    if(time_remaining > 0){
-      return false;
+    if(time_remaining >= 0){
+      return true;
     }
-    return true;
+    return false;
   }
   // absolute real values ??? use !! for setting it??
   get fun time(): Int {
