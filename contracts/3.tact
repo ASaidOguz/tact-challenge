@@ -38,14 +38,14 @@ import "@stdlib/deploy";
    -> check price of tokens via getter - SUCCESS
    -> jetton-transfers                 - FAİL
    */
-message(0x7362d09c) JettonNotification {
+message(0x7362d09c) TokenNotification {
     queryId: Int as uint64;
     amount: Int as coins;
     from: Address;
     forwardPayload: Slice as remaining;
 }
 
-message(0xf8a7ea5) JettonTransfer {
+message(0xf8a7ea5) TokenTransfer {
     queryId: Int as uint64;
     amount: Int as coins;
     destination: Address;
@@ -56,7 +56,7 @@ message(0xf8a7ea5) JettonTransfer {
 }
 
 contract Task3 with Deployable {
-  const forward_ton_amount: Int = ton("0.0001");
+  const forward_ton_amount: Int = ton("0.01");
 
   owner: Address;
   aAmount: Int;
@@ -74,7 +74,7 @@ contract Task3 with Deployable {
     self.decimal = 1000000000;
   }
 
-  receive(msg: JettonNotification) {
+  receive(msg: TokenNotification) {
   
   require(sender() == self.jettonAddressA|| sender() == self.jettonAddressB,"Invalid jetton");
   
