@@ -91,8 +91,8 @@ contract Task3 with Deployable {
   else
   {
   if(sender()==self.jettonAddressA){
-    let swapAmount:Int;
-    if(aAmount==0){
+    let swapAmount:Int = 0;
+    if(self.aAmount==0){
       swapAmount=1;
     }else{
    swapAmount =self.calculate_price(self.jettonAddressA,msg.amount);
@@ -116,8 +116,8 @@ contract Task3 with Deployable {
    }
   }
   else{
-    let swapAmount:Int;
-    if(bAmount==0){
+    let swapAmount:Int=0;
+    if(self.bAmount==0){
       swapAmount=1;
     }else{
    swapAmount =self.calculate_price(self.jettonAddressA,msg.amount);
