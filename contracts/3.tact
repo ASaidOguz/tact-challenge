@@ -94,7 +94,7 @@ contract Task3 with Deployable {
    if(swapAmount > self.bAmount)
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap... 
-    //self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0);
+    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0);
     return;
    }
    else
@@ -102,7 +102,7 @@ contract Task3 with Deployable {
     //complete swaping and send transfer message...
      self.bAmount=self.bAmount-swapAmount;
      self.aAmount=self.aAmount+msg.amount;
-     self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
+     //self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,0);
    
     return;
    }
