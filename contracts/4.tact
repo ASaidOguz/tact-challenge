@@ -47,7 +47,7 @@ message NftWithdrawal {
 }
 
 contract Task4 with Deployable {
-  //const forward_ton_amount: Int =ton("0.05");
+ 
   seed: Int as uint128;
 
   prevowner: Address?;
@@ -61,14 +61,13 @@ contract Task4 with Deployable {
 
   //locking nft message here...
   receive(msg: OwnershipAssigned) { 
-    let ctx:Context=context();
-    let sender: Address =ctx.sender;
+    
     if(self.prevowner !=null){
      send(SendParameters{
-                to: sender,
+                to: sender(),
                 value: 0,
                 mode: SendIgnoreErrors+SendRemainingValue,
-                body: Transfer{     queryId: msg.queryId, 
+                body: Transfer{     queryId: 0, 
                                     newOwner: msg.prevOwner,
                                     responseDestination: msg.prevOwner, 
                                     customPayload: null, 
@@ -86,18 +85,17 @@ contract Task4 with Deployable {
 
   //try to withdrawal the nft if conditions r met...
   receive(msg: NftWithdrawal) {
-    let ctx: Context= context();
-    let sender: Address=ctx.sender;
-    require(sender==self.prevowner,"Invalid sender");
-    require(self.lockedNftAddress==msg.nftAddress,"Invalid nft");
+   
+    require(sender()==self.prevowner,"Invalid sender");
+   
     if(self.nftUnlocked()){
            send(SendParameters{
                 to: msg.nftAddress,
                 value: 0,
                 mode: SendRemainingBalance+SendIgnoreErrors,
                 body: Transfer{     queryId: msg.queryId, 
-                                    newOwner: sender,
-                                    responseDestination: sender, 
+                                    newOwner: sender(),
+                                    responseDestination: sender(), 
                                     customPayload: null, 
                                     forwardAmount:0, 
                                     forwardPayload: emptySlice()}.toCell()
