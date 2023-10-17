@@ -141,7 +141,7 @@ contract Task3 with Deployable {
                                     destination: destination, 
                                     responseDestination: destination, 
                                     customPayload: message.asComment(), 
-                                    forwardTonAmount: self.forward_ton_amount, 
+                                    forwardTonAmount: 0, 
                                     forwardPayload: emptySlice()}.toCell()
             });
         
