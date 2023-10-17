@@ -91,7 +91,7 @@ contract Task3 with Deployable {
   if(sender()==self.jettonAddressA){
     let swapAmount:Int = self.calculate_price(self.jettonAddressA,msg.amount);
    
-   if(swapAmount>= self.bAmount)
+   if(swapAmount > self.bAmount)
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap... 
     self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,0);
@@ -110,7 +110,7 @@ contract Task3 with Deployable {
   else{
   let swapAmount:Int = self.calculate_price(self.jettonAddressA,msg.amount);
   
-   if(swapAmount >= self.aAmount){
+   if(swapAmount > self.aAmount){
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
    
     self.transferJettonToSender(self.jettonAddressB,msg.from,msg.amount,0);
@@ -165,11 +165,11 @@ contract Task3 with Deployable {
      let bAmount:Int=self.bAmount;
 
     if(jetton==self.jettonAddressA){
-      price= ((aAmount * decimal / bAmount)) ;
+      price= ((bAmount * decimal / aAmount)) ;
       return price;
     }
     if(jetton==self.jettonAddressB){
-     price=((bAmount * decimal) / aAmount)  ;
+     price=((aAmount * decimal) / bAmount)  ;
       return price;
     }
     return price;
