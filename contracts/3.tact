@@ -31,7 +31,13 @@ import "@stdlib/deploy";
   Admin can add jettons A and B just by sending them to the smart contract (we need to add initial supply to the pool for it to be functional).
   To be exact: any jettons (A or B) received from the admin are "added". Admin can't swap.
 */
-
+/* Test flows 
+      send jettons as owner for initial value
+   -> check if jettons r allowed       - SUCCESS
+   -> check amount of jettons by getter- SUCCESS
+   -> check price of tokens via getter - SUCCESS
+   -> jetton-transfers                 - FAİL
+   */
 message(0x7362d09c) TokenNotification {
     queryId: Int as uint64;
     amount: Int as coins;
@@ -70,7 +76,7 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
   
-  require(sender()==self.jettonAddressA||sender()==self.jettonAddressB,"Invalid jetton");
+  require(sender() == self.jettonAddressA|| sender() == self.jettonAddressB,"Invalid jetton");
   
   if(msg.from==self.owner){
     if(sender()==self.jettonAddressA){
@@ -88,13 +94,14 @@ contract Task3 with Deployable {
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
     //let message1:String="Not enough jetton in DEX!";
-    //self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
+    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
     return;
    }
     //complete swaping and send transfer message
     //let message2:String="Swap completed!";
      self.bAmount=self.bAmount-swapAmount;
-    //self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
+     self.aAmount=self.aAmount+msg.amount;
+     self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
    
     return;
    
@@ -110,8 +117,10 @@ contract Task3 with Deployable {
    }
     //complete swaping and send transfer message
     //let message2:String="Swap completed!";
-    //self.aAmount=self.aAmount-swapAmount;
-    //self.transferJettonToSender(self.jettonAddressA,msg.from,swapAmount,msg.queryId);
+    
+    self.transferJettonToSender(self.jettonAddressA,msg.from,swapAmount,msg.queryId);
+    self.aAmount=self.aAmount-swapAmount;
+    self.bAmount=self.bAmount+msg.amount;
     return;
    
   }
