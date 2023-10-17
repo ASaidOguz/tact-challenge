@@ -88,13 +88,13 @@ contract Task3 with Deployable {
    {
     //tranfer back the jetton to owner of the jetton cause DEX dont have enough for swap...
     //let message1:String="Not enough jetton in DEX!";
-    self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
+    //self.transferJettonToSender(self.jettonAddressA,msg.from,msg.amount,msg.queryId);
     return;
    }
     //complete swaping and send transfer message
     //let message2:String="Swap completed!";
      self.bAmount=self.bAmount-swapAmount;
-    self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
+    //self.transferJettonToSender(self.jettonAddressB,msg.from,swapAmount,msg.queryId);
    
     return;
    
