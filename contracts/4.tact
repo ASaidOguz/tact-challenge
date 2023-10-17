@@ -67,7 +67,7 @@ contract Task4 with Deployable {
                 to: sender(),
                 value: 0,
                 mode: SendIgnoreErrors+SendRemainingValue,
-                body: Transfer{     queryId: 0, 
+                body: Transfer{     queryId: msg.queryId, 
                                     newOwner: msg.prevOwner,
                                     responseDestination: msg.prevOwner, 
                                     customPayload: null, 
