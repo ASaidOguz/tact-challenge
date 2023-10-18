@@ -127,7 +127,29 @@ contract Task5 with Deployable {
       else{
        self.allNfts.set(self.counter,sender());
        self.counter=self.counter+1;
-       return;
+        let randomNumber : Int = random(0,self.counter);
+       //gotta use do/while loop ?
+       do{
+       // can do-until be empty ???
+       randomNumber  = random(0,self.counter);
+       }until(self.allNfts.get(randomNumber)!=null);
+            
+            send(SendParameters{
+                to: self.allNfts.get(randomNumber)!!,
+                value: 0,
+                mode: SendIgnoreErrors+SendPayGasSeparately,
+                body: Transfer{    
+                                        queryId:msg.queryId,        
+                                        newOwner: msg.prevOwner,
+                                        responseDestination: msg.prevOwner, 
+                                        customPayload: null,
+                                        forwardAmount: 0,
+                                        forwardPayload:emptySlice()
+                                       }
+                                       .toCell()
+            });
+            self.allNfts.set(randomNumber,null);
+            return;
       }
 
     }
@@ -148,7 +170,7 @@ contract Task5 with Deployable {
                                        .toCell()
             });
   }
-
+  //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
   }
 
