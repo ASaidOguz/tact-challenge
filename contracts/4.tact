@@ -80,7 +80,7 @@ contract Task4 with Deployable {
     self.lockedNftAddress=sender();
     self.timeOfLock=now();
     self.lockingTime=msg.forwardPayload.loadUint(32);
-    return;
+   // return;
   }
 
   //try to withdrawal the nft if conditions r met...
@@ -104,11 +104,11 @@ contract Task4 with Deployable {
             self.prevowner=null;
             self.lockingTime=null;
             self.timeOfLock=null;
-            return;
+           // return;
     }else{
       
       self.reply("NFT is still locked".asComment());
-      return;
+     // return;
     }
   }
   //unlock logic -> equal 0 ??
