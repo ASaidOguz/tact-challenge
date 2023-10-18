@@ -134,7 +134,7 @@ contract Task5 with Deployable {
        randomNumber  = random(0,self.counter);
        }until(self.allNfts.get(randomNumber)!=null);
             
-            send(SendParameters{
+   /*          send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendIgnoreErrors,
@@ -147,7 +147,7 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            });
+            }); */
             self.allNfts.set(randomNumber,null);
             return;
       }
