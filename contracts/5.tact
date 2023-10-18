@@ -114,7 +114,7 @@ contract Task5 with Deployable {
          send(SendParameters{
                 to: sender(),
                 value: 0,
-                mode: SendRemainingValue+SendIgnoreErrors,
+                mode: SendPayGasSeparately+SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
