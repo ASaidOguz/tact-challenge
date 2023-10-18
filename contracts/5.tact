@@ -114,7 +114,7 @@ contract Task5 with Deployable {
          send(SendParameters{
                 to: sender(),
                 value: 0,
-                mode: SendPayGasSeparately+SendIgnoreErrors,
+                mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
@@ -142,7 +142,7 @@ contract Task5 with Deployable {
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendIgnoreErrors+SendPayGasSeparately,
+                mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
