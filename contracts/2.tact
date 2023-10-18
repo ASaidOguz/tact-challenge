@@ -34,7 +34,7 @@ send(SendParameters{
     value: 0,
     mode:SendRemainingValue+SendIgnoreErrors,
     bounce:true,
-    body: "Bounced".asComment()
+    body: beginCell().endCell()
 
 });
 
