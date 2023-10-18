@@ -83,15 +83,18 @@ contract Task5 with Deployable {
   
   //nft mapping
   allNfts: map<Int as uint16 ,Address> ;
-  //counter+1: real value of the amount of nft held...
-  counter : Int as uint16;
+  
+  //nft ındexes in mapping...
+  nftIndex : Int as uint16;
+
+  //real value of the amount of nft held...
+  nftCounter: Int as uint16;
   init(seed: Int, owner: Address) {
     self.owner = owner;
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
-    self.counter=0;
+    self.nftIndex=0;
+    self.nftCounter=0;
   }
-  //create array instead of simple counter and use the query ids as elements
-  //inside array and key as mapping so just get random value between 0- array lenght 
   //send the nft and remove the element from array and remove it from mapping
  /*  "delete keys") {
         //  keys are Int
@@ -101,8 +104,9 @@ contract Task5 with Deployable {
     //if the previouse owner of the nft is admin just add the nfts into poo
     //without any check...
     if(msg.prevOwner==self.owner){
-       self.allNfts.set(self.counter,sender());
-       self.counter=self.counter+1;
+       self.allNfts.set(self.nftIndex,sender());
+       self.nftCounter= self.nftCounter+ 1;
+       self.nftIndex=self.nftIndex+1;
        return;
     }else{
       //if message doesnt have enough ton then refund the nft...
@@ -125,21 +129,22 @@ contract Task5 with Deployable {
 
       }//if sended ton is enough then set the nft inside the pool and increase counter by 1
       else{
-       self.allNfts.set(self.counter,sender());
-       self.counter=self.counter+1;
-        let randomNumber : Int = random(0,self.counter);
+       self.allNfts.set(self.nftIndex,sender());
+       self.nftIndex=self.nftIndex+1;
+       
+        let randomNumber : Int = random(0,self.nftIndex);
        //gotta use do/while loop ?
        do{
        // can do-until be empty ???
-       randomNumber  = random(0,self.counter);
+       randomNumber  = random(0,self.nftIndex);
        }until(self.allNfts.get(randomNumber)!=null);
             
-   /*          send(SendParameters{
+           send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendIgnoreErrors,
                 body: Transfer{    
-                                        queryId:msg.queryId,        
+                                        queryId:0,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
@@ -147,8 +152,9 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            }); */
+            }); 
             self.allNfts.set(randomNumber,null);
+            self.nftCounter=self.nftCounter-1;
             return;
       }
 
@@ -172,6 +178,7 @@ contract Task5 with Deployable {
   }
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
+    require((context().value>(self.nftCounter+1)*ton("0.08")),"Insufficent funds");
   }
 
   get fun profit(): Int { 
