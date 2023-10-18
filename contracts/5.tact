@@ -83,17 +83,23 @@ contract Task5 with Deployable {
   //nft mapping
   allNfts: map<Int as uint16 ,Address> ;
   
-  counter: Int as uint16 ;
+  
   init(seed: Int, owner: Address) {
     self.owner = owner;
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
-    self.counter=0;
+    
   }
-
+  //create array instead of simple counter and use the query ids as elements
+  //inside array and key as mapping so just get random value between 0- array lenght 
+  //send the nft and remove the element from array and remove it from mapping
+ /*  "delete keys") {
+        //  keys are Int
+        self.allNfts.set(17, null); 
+        */
   receive(msg: OwnershipAssigned) {
     if(msg.prevOwner==self.owner){
-       self.counter=self.counter+1;
-       self.allNfts.set(self.counter,sender());
+    
+       self.allNfts.set(msg.queryId,sender());
        return;
     }else{
 
@@ -102,7 +108,7 @@ contract Task5 with Deployable {
   }
 
   receive(msg: AdminWithdrawalProfit) {
-    require(sender()==self.owner,"Invalid owner");
+    require(sender()==self.owner,"Insufficient privelegies");
     let sendValue : Int = myBalance()-ton("0.1");
 
         send(SendParameters{
