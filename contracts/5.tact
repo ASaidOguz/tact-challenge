@@ -29,7 +29,8 @@ import "@stdlib/deploy";
    - If all checks pass, SC should send NFTs one by one to the admin 
    - SC should be able to withdraw all NFTs by a single message from admin
   * OwnershipAssigned 
-   - if prevOwner is the owner's (admin) address, then add NFT to the collection
+   - if prevOwner is the owner's (admin) address, 
+   
    - if value of TON attached is less then 2.1 TON then stop execution and return NFT back,
      but only in case that TON attached is enough to process refund without 
      losing TONs on the SC's balance
@@ -82,12 +83,12 @@ contract Task5 with Deployable {
   
   //nft mapping
   allNfts: map<Int as uint16 ,Address> ;
-  
-  
+  //counter+1: real value of the amount of nft held...
+  counter : Int as uint16;
   init(seed: Int, owner: Address) {
     self.owner = owner;
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
-    
+    self.counter=0;
   }
   //create array instead of simple counter and use the query ids as elements
   //inside array and key as mapping so just get random value between 0- array lenght 
@@ -97,11 +98,37 @@ contract Task5 with Deployable {
         self.allNfts.set(17, null); 
         */
   receive(msg: OwnershipAssigned) {
+    //if the previouse owner of the nft is admin just add the nfts into poo
+    //without any check...
     if(msg.prevOwner==self.owner){
-    
-       self.allNfts.set(msg.queryId,sender());
+       self.allNfts.set(self.counter,sender());
+       self.counter=self.counter+1;
        return;
     }else{
+      //if message doesnt have enough ton then refund the nft...
+      if(context().value<ton("2.1")){
+         send(SendParameters{
+                to: sender(),
+                value: 0,
+                mode: SendRemainingValue+SendIgnoreErrors,
+                body: Transfer{    
+                                        queryId:msg.queryId,        
+                                        newOwner: msg.prevOwner,
+                                        responseDestination: msg.prevOwner, 
+                                        customPayload: null,
+                                        forwardAmount: 0,
+                                        forwardPayload:emptySlice()
+                                       }
+                                       .toCell()
+            });
+
+
+      }//if sended ton is enough then set the nft inside the pool and increase counter by 1
+      else{
+       self.allNfts.set(self.counter,sender());
+       self.counter=self.counter+1;
+       return;
+      }
 
     }
     
@@ -115,7 +142,8 @@ contract Task5 with Deployable {
                 to: self.owner,
                 value: sendValue,
                 mode: SendIgnoreErrors,
-                body: AdminFetchProfit{     queryId: 0
+                body: AdminFetchProfit{    
+                                        queryId: 0
                                        }
                                        .toCell()
             });
