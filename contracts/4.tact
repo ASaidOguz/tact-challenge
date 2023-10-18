@@ -108,7 +108,7 @@ contract Task4 with Deployable {
     }else{
       
       self.reply("NFT is still locked".asComment());
-     // return;
+      return;
     }
   }
   //unlock logic -> equal 0 ??
