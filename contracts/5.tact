@@ -89,14 +89,12 @@ contract Task5 with Deployable {
   //real value of the amount of nft held...
   nftCounter: Int as uint16;
   
-  //
-  balance: Int;
   init(seed: Int, owner: Address) {
     self.owner = owner;
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.nftIndex=0;
     self.nftCounter=0;
-    self.balance= myBalance();
+    
   }
   //send the nft and remove the element from array and remove it from mapping
  /*  "delete keys") {
@@ -110,7 +108,7 @@ contract Task5 with Deployable {
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
        self.nftCounter= self.nftCounter+ 1;
-       self.balance=myBalance();
+       
        return;
     }else{
       //if message doesnt have enough ton then refund the nft...
@@ -140,7 +138,7 @@ contract Task5 with Deployable {
        //take the fee from message value and reserve balance so rest of the ton coin
        //goes to user...
       
-      nativeReserve(context().value-ton("2"),0+8);
+      nativeReserve(context().value-ton("2"),1);
       self.allNfts.set(self.nftIndex,sender());
       self.nftIndex=self.nftIndex+1;
       
@@ -158,7 +156,7 @@ contract Task5 with Deployable {
                 value: 0,
                 mode: SendRemainingBalance+SendIgnoreErrors,
                 body: Transfer{    
-                                        queryId:0,        
+                                        queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
@@ -168,7 +166,6 @@ contract Task5 with Deployable {
                                        .toCell()
             });  
             self.allNfts.set(randomNumber,null);
-            self.balance=myBalance();
             return; 
       }
 
