@@ -106,7 +106,6 @@ contract Task5 with Deployable {
     if(msg.prevOwner==self.owner){
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
-
        self.nftCounter= self.nftCounter+ 1;
        
        return;
@@ -136,12 +135,12 @@ contract Task5 with Deployable {
        self.allNfts.set(self.nftIndex,sender());
       
        
-        let randomNumber : Int = random(0,self.nftIndex);
+      let randomNumber : Int = random(0,self.nftIndex);
        
        while(self.allNfts.get(randomNumber)==null){
        randomNumber  = random(0,self.nftIndex);
        }
-            
+          
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
@@ -151,7 +150,7 @@ contract Task5 with Deployable {
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
-                                        forwardAmount: context().value-ton("2"),
+                                        forwardAmount: 0,
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
