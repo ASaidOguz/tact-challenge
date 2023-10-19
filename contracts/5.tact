@@ -139,7 +139,7 @@ contract Task5 with Deployable {
       let randomNumber : Int = random(0,self.nftIndex);
        
        while(self.allNfts.get(randomNumber)==null){
-       randomNumber  = random(0,self.nftIndex);
+       randomNumber  = random(0,self.nftIndex-1);
        }
           
               send(SendParameters{
