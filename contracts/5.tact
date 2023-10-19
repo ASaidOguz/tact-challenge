@@ -140,7 +140,7 @@ contract Task5 with Deployable {
        //take the fee from message value and reserve balance so rest of the ton coin
        //goes to user...
       
-      nativeReserve(myBalance()-context().value+ton("2"),0);
+      nativeReserve(ton("2"),0);
       self.allNfts.set(self.nftIndex,sender());
       self.nftIndex=self.nftIndex+1;
       
@@ -156,7 +156,7 @@ contract Task5 with Deployable {
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingBalance+SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:0,        
                                         newOwner: msg.prevOwner,
