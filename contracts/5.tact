@@ -136,22 +136,25 @@ contract Task5 with Deployable {
        self.nftIndex=self.nftIndex+1;
       
        
-      let randomNumber : Int = random(0,self.nftIndex);
+      let randomNumber : Int = random(0,self.nftIndex-1);
        
        while(self.allNfts.get(randomNumber)==null){
        randomNumber  = random(0,self.nftIndex-1);
        }
-          
+          let forwarded_value:Int=context().value-ton("2.1");
+          if(forwarded_value<0){
+            forwarded_value=0;
+          }
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendIgnoreErrors,
+                mode: SendIgnoreErrors+SendPayGasSeparately,
                 body: Transfer{    
                                         queryId:0,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
-                                        forwardAmount: 0,
+                                        forwardAmount: forwarded_value,
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
