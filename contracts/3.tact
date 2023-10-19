@@ -36,7 +36,7 @@ import "@stdlib/deploy";
    -> check if jettons r allowed       - SUCCESS
    -> check amount of jettons by getter- SUCCESS
    -> check price of tokens via getter - SUCCESS
-   -> jetton-transfers                 - FAİL
+   -> jetton-transfers                 - SUCCESS
    */
 message(0x7362d09c) TokenNotification {
     queryId: Int as uint64;

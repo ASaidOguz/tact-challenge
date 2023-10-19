@@ -132,8 +132,9 @@ contract Task5 with Deployable {
       }
       //if sended ton is enough then set the nft inside the pool and increase counter by 1
       else{
-       self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
+       self.allNfts.set(self.nftIndex,sender());
+      
        
         let randomNumber : Int = random(0,self.nftIndex);
        
