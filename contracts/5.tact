@@ -140,12 +140,12 @@ contract Task5 with Deployable {
        randomNumber  = random(0,self.nftIndex);
        }until(self.allNfts.get(randomNumber)!=null);
             
-           send(SendParameters{
+     /*       send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendPayGasSeparately,
                 body: Transfer{    
-                                        queryId:msg.queryId,        
+                                        queryId:randomNumber,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: myAddress(), 
                                         customPayload: null,
@@ -153,7 +153,7 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            }); 
+            });  */
             self.allNfts.set(randomNumber,null);
             self.nftCounter=self.nftCounter-1;
             return;
