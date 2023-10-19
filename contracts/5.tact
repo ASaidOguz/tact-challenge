@@ -176,18 +176,18 @@ contract Task5 with Deployable {
   }
   
   receive(msg: AdminWithdrawalProfit) {
-  //  require(sender()==self.owner,"Insufficient privelegies");
-  /*   let sendValue : Int = myBalance()-ton("0.1");
+   require(sender()==self.owner,"Insufficient privelegies");
+     let sendValue : Int = myBalance()-ton("0.1");
 
          send(SendParameters{
                 to: self.owner,
                 value: sendValue,
-                mode: SendIgnoreErrors,
+                mode: SendIgnoreErrors+SendRemainingValue,
                 body: AdminFetchProfit{    
                                         queryId: msg.queryId
                                        }
                                        .toCell()
-            });  */
+            });  
   }
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
