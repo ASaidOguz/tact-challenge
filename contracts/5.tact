@@ -135,7 +135,10 @@ contract Task5 with Deployable {
       }
       //if sended ton is enough then set the nft inside the pool and increase index by 1 for next nft
       else{
-       
+       let non-reserveAmount:Int=context().value-ton("2");
+       //take the fee from message value and reserve balance so rest of the ton coin
+       //goes to user...
+       nativeReserve(non-reserveAmount,0+8);
       self.allNfts.set(self.nftIndex,sender());
       self.nftIndex=self.nftIndex+1;
       
