@@ -86,6 +86,8 @@ contract Task5 with Deployable {
   //nft ındexes in mapping...
   nftIndex : Int as uint16;
 
+//contract balance;
+  balance: Int ;
   //real value of the amount of nft held...
   nftCounter: Int as uint16;
   init(seed: Int, owner: Address) {
@@ -93,6 +95,7 @@ contract Task5 with Deployable {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.nftIndex=0;
     self.nftCounter=0;
+    self.balance= myBalance();
   }
   //send the nft and remove the element from array and remove it from mapping
  /*  "delete keys") {
@@ -106,11 +109,14 @@ contract Task5 with Deployable {
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
        self.nftCounter= self.nftCounter+ 1;
-       
+       self.balance=myBalance();
        return;
     }else{
       //if message doesnt have enough ton then refund the nft...
       if(context().value<ton("2.1")){
+        //reserve the balance and try sending the message;
+         nativeReserve(self.balance, 0);
+
          send(SendParameters{
                 to: sender(),
                 value: 0,
@@ -131,7 +137,7 @@ contract Task5 with Deployable {
       //if sended ton is enough then set the nft inside the pool and increase index by 1 for next nft
       else{
        
-      /*  self.allNfts.set(self.nftIndex,sender());
+        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
       
        //random number should be between index-1 cause current index holds reserved position
@@ -142,10 +148,7 @@ contract Task5 with Deployable {
        while(self.allNfts.get(randomNumber)==null){
        randomNumber  = random(0,self.nftIndex-1);
        }
-          let forwarded_value:Int=context().value-ton("2.1");
-          if(forwarded_value<0){
-            forwarded_value=0;
-          }
+          
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
@@ -155,14 +158,14 @@ contract Task5 with Deployable {
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
-                                        forwardAmount: forwarded_value,
+                                        forwardAmount: 0,
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
             });  
             self.allNfts.set(randomNumber,null);
             
-            return; */
+            return; 
       }
 
     }
