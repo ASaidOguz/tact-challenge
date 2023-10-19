@@ -114,7 +114,7 @@ contract Task5 with Deployable {
          send(SendParameters{
                 to: sender(),
                 value: 0,
-                mode: SendIgnoreErrors,
+                mode: SendIgnoreErrors+SendRemainingValue,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
@@ -132,7 +132,7 @@ contract Task5 with Deployable {
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
        
-        let randomNumber : Int = random(0,self.nftIndex);
+        let randomNumber : Int =0;
        //gotta use do/while loop ?
        do{
        // can do-until be empty ???
@@ -142,7 +142,7 @@ contract Task5 with Deployable {
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendIgnoreErrors,
+                mode: SendIgnoreErrors+SendPayGasSeparately,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
