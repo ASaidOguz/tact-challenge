@@ -172,7 +172,7 @@ contract Task5 with Deployable {
     require(sender()==self.owner,"Insufficient privelegies");
     let sendValue : Int = myBalance()-ton("0.1");
 
-       /*  send(SendParameters{
+         send(SendParameters{
                 to: self.owner,
                 value: sendValue,
                 mode: SendIgnoreErrors,
@@ -180,7 +180,7 @@ contract Task5 with Deployable {
                                         queryId: 0
                                        }
                                        .toCell()
-            }); */
+            }); 
   }
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
