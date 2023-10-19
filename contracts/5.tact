@@ -138,7 +138,7 @@ contract Task5 with Deployable {
        //take the fee from message value and reserve balance so rest of the ton coin
        //goes to user...
       
-   /*    nativeReserve(context().value-ton("2"),1);
+  
       self.allNfts.set(self.nftIndex,sender());
       self.nftIndex=self.nftIndex+1;
       
@@ -150,7 +150,7 @@ contract Task5 with Deployable {
        while(self.allNfts.get(randomNumber)==null){
        randomNumber  = randomInt()%(self.nftIndex-1);
        }
-          
+              nativeReserve(context().value-ton("2"),1);
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
@@ -166,7 +166,7 @@ contract Task5 with Deployable {
                                        .toCell()
             });  
             self.allNfts.set(randomNumber,null);
-            return;  */
+            return;  
       }
 
     }
