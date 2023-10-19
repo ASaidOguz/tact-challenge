@@ -151,7 +151,7 @@ contract Task5 with Deployable {
                 value: 0,
                 mode: SendPayGasSeparately,
                 body: Transfer{    
-                                        queryId:0,        
+                                        queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
@@ -195,8 +195,8 @@ contract Task5 with Deployable {
    }
             send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: 0,
-                mode: SendIgnoreErrors+SendPayGasSeparately,
+                value: ton("0.06"),
+                mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: self.owner,
