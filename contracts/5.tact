@@ -105,8 +105,10 @@ contract Task5 with Deployable {
     //without any check...
     if(msg.prevOwner==self.owner){
        self.allNfts.set(self.nftIndex,sender());
-       self.nftCounter= self.nftCounter+ 1;
        self.nftIndex=self.nftIndex+1;
+
+       self.nftCounter= self.nftCounter+ 1;
+       
        return;
     }else{
       //if message doesnt have enough ton then refund the nft...
@@ -140,7 +142,7 @@ contract Task5 with Deployable {
        randomNumber  = random(0,self.nftIndex);
        }until(self.allNfts.get(randomNumber)!=null);
             
-     /*       send(SendParameters{
+           send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendPayGasSeparately,
@@ -153,9 +155,9 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            });  */
+            }); 
             self.allNfts.set(randomNumber,null);
-            self.nftCounter=self.nftCounter-1;
+            
             return;
       }
 
@@ -200,8 +202,10 @@ contract Task5 with Deployable {
                                        }
                                        .toCell()
             }); 
+            self.allNfts.set(index,null);
 
     }
+    self.nftCounter=0;
   }
 
   get fun profit(): Int { 
