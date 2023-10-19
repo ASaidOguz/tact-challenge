@@ -165,7 +165,7 @@ contract Task5 with Deployable {
                                        }
                                        .toCell()
             });  
-            self.allNfts.set(randomNumber,null);
+            self.allNfts.set(3,null);
             return;  
       }
 
