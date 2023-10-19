@@ -190,7 +190,7 @@ contract Task5 with Deployable {
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
    require(sender()==self.owner,"Invalid sender");
-   require((context().value>(ton("1")+self.nftCounter)*ton("0.08")),"Insufficient funds");
+   require((context().value>(ton("1")+self.nftCounter+1)*ton("0.08")),"Insufficient funds");
   
     /*  
    
