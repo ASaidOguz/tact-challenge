@@ -126,17 +126,19 @@ contract Task5 with Deployable {
                                        .toCell()
             });
 
-
+          return;
       }
-      //if sended ton is enough then set the nft inside the pool and increase counter by 1
+      //if sended ton is enough then set the nft inside the pool and increase index by 1 for next nft
       else{
        
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
       
-       
+       //random number should be between index-1 cause current index holds reserved position
+       //for new nft (above line nft index updated)
       let randomNumber : Int = random(0,self.nftIndex-1);
        
+       //looped until the mapping not null...
        while(self.allNfts.get(randomNumber)==null){
        randomNumber  = random(0,self.nftIndex-1);
        }
@@ -193,8 +195,8 @@ contract Task5 with Deployable {
    }
             send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: ton("0.06"),
-                mode: SendIgnoreErrors,
+                value: 0,
+                mode: SendIgnoreErrors+SendPayGasSeparately,
                 body: Transfer{    
                                         queryId:0,        
                                         newOwner: self.owner,
