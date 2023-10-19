@@ -178,7 +178,7 @@ contract Task5 with Deployable {
                 value: sendValue,
                 mode: SendIgnoreErrors,
                 body: AdminFetchProfit{    
-                                        queryId: 0
+                                        queryId: msg.queryId
                                        }
                                        .toCell()
             }); 
