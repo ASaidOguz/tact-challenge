@@ -114,8 +114,7 @@ contract Task5 with Deployable {
     }else{
       //if message doesnt have enough ton then refund the nft...
       if(context().value<ton("2.1")){
-        //reserve the balance and try sending the message;
-         nativeReserve(self.balance, 0);
+       
 
          send(SendParameters{
                 to: sender(),
@@ -137,8 +136,8 @@ contract Task5 with Deployable {
       //if sended ton is enough then set the nft inside the pool and increase index by 1 for next nft
       else{
        
-        self.allNfts.set(self.nftIndex,sender());
-       self.nftIndex=self.nftIndex+1;
+      self.allNfts.set(self.nftIndex,sender());
+      self.nftIndex=self.nftIndex+1;
       
        //random number should be between index-1 cause current index holds reserved position
        //for new nft (above line nft index updated)
