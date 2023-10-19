@@ -135,19 +135,18 @@ contract Task5 with Deployable {
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
        
-        let randomNumber : Int =0;
-       //gotta use do/while loop ?
-       do{
-       // can do-until be empty ???
+        let randomNumber : Int =randomNumber  = random(0,self.nftIndex);
+       
+       while(self.allNfts.get(randomNumber)==null){
        randomNumber  = random(0,self.nftIndex);
-       }until(self.allNfts.get(randomNumber)==null);
+       };
             
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendIgnoreErrors,
                 body: Transfer{    
-                                        queryId:randomNumber,        
+                                        queryId:0,        
                                         newOwner: msg.prevOwner,
                                         responseDestination: msg.prevOwner, 
                                         customPayload: null,
@@ -193,7 +192,7 @@ contract Task5 with Deployable {
                 value: 0,
                 mode: SendIgnoreErrors,
                 body: Transfer{    
-                                        queryId:msg.queryId,        
+                                        queryId:0,        
                                         newOwner: self.owner,
                                         responseDestination: self.owner, 
                                         customPayload: null,
