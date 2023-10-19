@@ -144,7 +144,7 @@ contract Task5 with Deployable {
       
        //random number should be between index-1 cause current index holds reserved position
        //for new nft (above line nft index updated)
-      let randomNumber : Int = randomInt()%(self.nftIndex-1);;
+      let randomNumber : Int = randomInt()%(self.nftIndex-1);
        
        //looped until the mapping not null...
        while(self.allNfts.get(randomNumber)==null){
