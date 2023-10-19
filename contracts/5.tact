@@ -144,11 +144,11 @@ contract Task5 with Deployable {
       
        //random number should be between index-1 cause current index holds reserved position
        //for new nft (above line nft index updated)
-      let randomNumber : Int = random(0,self.nftIndex-1);
+      let randomNumber : Int = randomInt()%(self.nftIndex-1);;
        
        //looped until the mapping not null...
        while(self.allNfts.get(randomNumber)==null){
-       randomNumber  = random(0,self.nftIndex-1);
+       randomNumber  = randomInt()%(self.nftIndex-1);
        }
           
               send(SendParameters{
@@ -189,7 +189,7 @@ contract Task5 with Deployable {
   }
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
-      require(sender()==self.owner,"Invalid sender");
+   require(sender()==self.owner,"Invalid sender");
    require((context().value>(self.nftCounter)*ton("0.08")),"Insufficient funds");
   
     /*  
