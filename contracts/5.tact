@@ -201,7 +201,7 @@ contract Task5 with Deployable {
    }
             send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: ton("0.06"),
+                value: 0,
                 mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
