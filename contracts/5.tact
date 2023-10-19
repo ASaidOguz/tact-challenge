@@ -172,7 +172,7 @@ contract Task5 with Deployable {
     require(sender()==self.owner,"Insufficient privelegies");
     let sendValue : Int = myBalance()-ton("0.1");
 
-        send(SendParameters{
+       /*  send(SendParameters{
                 to: self.owner,
                 value: sendValue,
                 mode: SendIgnoreErrors,
@@ -180,14 +180,14 @@ contract Task5 with Deployable {
                                         queryId: 0
                                        }
                                        .toCell()
-            });
+            }); */
   }
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
    // require(sender()==self.owner,"Invalid sender");
     //require((context().value>(self.nftCounter)*ton("0.08")),"Insufficent funds");
     
-    let index:Int=0;
+  /*   let index:Int=0;
     repeat(self.nftCounter){
    while(self.allNfts.get(index)==null){
     index=index+1;
@@ -210,7 +210,7 @@ contract Task5 with Deployable {
 
     }
     self.nftCounter=0;
-    return;
+    return; */
   }
 
   get fun profit(): Int { 
