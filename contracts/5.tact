@@ -127,7 +127,8 @@ contract Task5 with Deployable {
             });
 
 
-      }//if sended ton is enough then set the nft inside the pool and increase counter by 1
+      }
+      //if sended ton is enough then set the nft inside the pool and increase counter by 1
       else{
        self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
@@ -142,11 +143,11 @@ contract Task5 with Deployable {
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendIgnoreErrors+SendPayGasSeparately,
+                mode: SendPayGasSeparately,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
-                                        responseDestination: msg.prevOwner, 
+                                        responseDestination: myAddress(), 
                                         customPayload: null,
                                         forwardAmount: 0,
                                         forwardPayload:emptySlice()
