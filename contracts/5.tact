@@ -131,7 +131,7 @@ contract Task5 with Deployable {
       //if sended ton is enough then set the nft inside the pool and increase index by 1 for next nft
       else{
        
-       self.allNfts.set(self.nftIndex,sender());
+      /*  self.allNfts.set(self.nftIndex,sender());
        self.nftIndex=self.nftIndex+1;
       
        //random number should be between index-1 cause current index holds reserved position
@@ -162,7 +162,7 @@ contract Task5 with Deployable {
             });  
             self.allNfts.set(randomNumber,null);
             
-            return;
+            return; */
       }
 
     }
