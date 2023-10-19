@@ -131,8 +131,9 @@ contract Task5 with Deployable {
       }
       //if sended ton is enough then set the nft inside the pool and increase counter by 1
       else{
-       self.nftIndex=self.nftIndex+1;
+       
        self.allNfts.set(self.nftIndex,sender());
+       self.nftIndex=self.nftIndex+1;
       
        
       let randomNumber : Int = random(0,self.nftIndex);
@@ -141,7 +142,7 @@ contract Task5 with Deployable {
        randomNumber  = random(0,self.nftIndex);
        }
           
-           /* send(SendParameters{
+              send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendIgnoreErrors,
@@ -154,7 +155,7 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            });  */
+            });  
             self.allNfts.set(randomNumber,null);
             
             return;
@@ -188,9 +189,9 @@ contract Task5 with Deployable {
    while(self.allNfts.get(index)==null){
     index=index+1;
    }
-       /*     send(SendParameters{
+            send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: 0,
+                value: ton("0.06"),
                 mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:0,        
@@ -201,7 +202,7 @@ contract Task5 with Deployable {
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
-            });  */
+            });  
             self.allNfts.set(index,null);
 
     }
