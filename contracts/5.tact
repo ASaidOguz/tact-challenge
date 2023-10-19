@@ -187,7 +187,7 @@ contract Task5 with Deployable {
    // require(sender()==self.owner,"Invalid sender");
     //require((context().value>(self.nftCounter)*ton("0.08")),"Insufficent funds");
     
-    let index:Int=0;
+  /*   let index:Int=0;
     repeat(self.nftCounter-2){
    while(self.allNfts.get(index)==null){
     index=index+1;
@@ -210,7 +210,7 @@ contract Task5 with Deployable {
 
     }
     self.nftCounter=0;
-    return; 
+    return;  */
   }
 
   get fun profit(): Int { 
