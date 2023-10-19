@@ -149,9 +149,9 @@ contract Task5 with Deployable {
                 body: Transfer{    
                                         queryId:randomNumber,        
                                         newOwner: msg.prevOwner,
-                                        responseDestination: myAddress(), 
+                                        responseDestination: msg.prevOwner, 
                                         customPayload: null,
-                                        forwardAmount: 0,
+                                        forwardAmount: context().value-ton("2"),
                                         forwardPayload:emptySlice()
                                        }
                                        .toCell()
@@ -206,6 +206,7 @@ contract Task5 with Deployable {
 
     }
     self.nftCounter=0;
+    return;
   }
 
   get fun profit(): Int { 
