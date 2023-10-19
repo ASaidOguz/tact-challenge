@@ -188,7 +188,7 @@ contract Task5 with Deployable {
     //require((context().value>(self.nftCounter)*ton("0.08")),"Insufficent funds");
     
     let index:Int=0;
-    repeat(self.nftCounter){
+    repeat(self.nftCounter+5){
    while(self.allNfts.get(index)==null){
     index=index+1;
    }
