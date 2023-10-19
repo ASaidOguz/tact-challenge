@@ -167,7 +167,7 @@ contract Task5 with Deployable {
     }
     
   }
-  //test-7 Adminwithdrawal profit sending message...
+  
   receive(msg: AdminWithdrawalProfit) {
     require(sender()==self.owner,"Insufficient privelegies");
     let sendValue : Int = myBalance()-ton("0.1");
@@ -188,7 +188,7 @@ contract Task5 with Deployable {
     //require((context().value>(self.nftCounter)*ton("0.08")),"Insufficent funds");
     
     let index:Int=0;
-    repeat(self.nftCounter+5){
+    repeat(self.nftCounter-2){
    while(self.allNfts.get(index)==null){
     index=index+1;
    }
