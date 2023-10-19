@@ -155,7 +155,7 @@ contract Task5 with Deployable {
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendRemainingBalance,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
