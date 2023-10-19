@@ -167,7 +167,7 @@ contract Task5 with Deployable {
     }
     
   }
-
+  //test-7 Adminwithdrawal profit sending message...
   receive(msg: AdminWithdrawalProfit) {
     require(sender()==self.owner,"Insufficient privelegies");
     let sendValue : Int = myBalance()-ton("0.1");
