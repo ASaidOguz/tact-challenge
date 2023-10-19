@@ -140,7 +140,7 @@ contract Task5 with Deployable {
        do{
        // can do-until be empty ???
        randomNumber  = random(0,self.nftIndex);
-       }until(self.allNfts.get(randomNumber)!=null);
+       }until(self.allNfts.get(randomNumber)==null);
             
            send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
