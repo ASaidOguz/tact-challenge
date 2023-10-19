@@ -29,8 +29,7 @@ import "@stdlib/deploy";
    - If all checks pass, SC should send NFTs one by one to the admin 
    - SC should be able to withdraw all NFTs by a single message from admin
   * OwnershipAssigned 
-   - if prevOwner is the owner's (admin) address, 
-   
+   - if prevOwner is the owner's (admin) address, then add NFT to the collection
    - if value of TON attached is less then 2.1 TON then stop execution and return NFT back,
      but only in case that TON attached is enough to process refund without 
      losing TONs on the SC's balance
@@ -115,7 +114,7 @@ contract Task5 with Deployable {
          send(SendParameters{
                 to: sender(),
                 value: 0,
-                mode: SendIgnoreErrors+SendRemainingValue,
+                mode: SendRemainingValue,
                 body: Transfer{    
                                         queryId:msg.queryId,        
                                         newOwner: msg.prevOwner,
@@ -148,7 +147,7 @@ contract Task5 with Deployable {
               send(SendParameters{
                 to: self.allNfts.get(randomNumber)!!,
                 value: 0,
-                mode: SendIgnoreErrors+SendPayGasSeparately,
+                mode: SendPayGasSeparately,
                 body: Transfer{    
                                         queryId:0,        
                                         newOwner: msg.prevOwner,
@@ -186,8 +185,7 @@ contract Task5 with Deployable {
   receive(msg: AdminWithdrawalAllNFTs) {
      require((context().value>(self.nftCounter)*ton("0.08")),"Insufficient funds");
      require(sender()==self.owner,"Invalid sender");
-  
-    
+   
      let index:Int=0;
     repeat(self.nftCounter){
    while(self.allNfts.get(index)==null){
