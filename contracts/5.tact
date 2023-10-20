@@ -253,7 +253,7 @@ receive (msg: AdminBatchRequestChild){
    repeat(batchLoops){
    send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: 0,
+                value: ton("0.06"),
                 mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
