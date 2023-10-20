@@ -211,7 +211,7 @@ contract Task5 with Deployable {
    
             send(SendParameters{
                 to:myAddress(),
-                value: 0,
+                value: ton("0.06"),
                 mode: SendIgnoreErrors,
                 body: AdminBatchRequest{    
                                         queryId:msg.queryId,        
