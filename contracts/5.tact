@@ -211,8 +211,8 @@ contract Task5 with Deployable {
    
             send(SendParameters{
                 to:myAddress(),
-                value: ton("0.06"),
-                mode: SendIgnoreErrors,
+                value:0,
+                mode: SendIgnoreErrors+SendRemainingValue,
                 body: AdminBatchRequest{    
                                         queryId:msg.queryId,        
                                         nftIndex: 0,
@@ -253,7 +253,7 @@ receive (msg: AdminBatchRequestChild){
    repeat(batchLoops){
    send(SendParameters{
                 to: self.allNfts.get(index)!!,
-                value: ton("0.06"),
+                value: ton("0.07"),
                 mode: SendIgnoreErrors,
                 body: Transfer{    
                                         queryId:msg.queryId,        
