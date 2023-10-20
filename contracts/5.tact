@@ -243,7 +243,7 @@ receive(msg: AdminBatchRequest){
  send(SendParameters{
                 to: myAddress(),
                 value: 0,
-                mode: SendIgnoreErrors+SendRemainingValue,
+                mode: SendRemainingBalance,
                 body: AdminBatchRequestChild{    
                                         queryId: msg.queryId,
                                         nftIndex: msg.nftIndex,
@@ -281,7 +281,7 @@ receive (msg: AdminBatchRequestChild){
       send(SendParameters{
                 to:myAddress(),
                 value: 0,
-                mode: SendIgnoreErrors+SendRemainingValue,
+                mode: SendRemainingBalance,
                 body: AdminBatchRequest{    
                                         queryId:msg.queryId,        
                                         nftIndex: index,
