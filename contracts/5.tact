@@ -60,7 +60,17 @@ message AdminWithdrawalAllNFTs {
 message AdminFetchProfit {
   queryId: Int as uint64;
 }
-
+//a message created for batching...
+message AdminBatchRequest{
+  queryId: Int as uint64;
+  nftIndex: Int as uint16;
+  mod: Int as uint16;
+}
+message AdminBatchRequestChild{
+  queryId: Int as uint64;
+  nftIndex: Int as uint16;
+  mod: Int as uint16;
+}
 message(0x05138d91) OwnershipAssigned {
     queryId: Int as uint64;
     prevOwner: Address;
@@ -192,16 +202,56 @@ contract Task5 with Deployable {
   //this will be the hardest part i guess....batching request ???
   receive(msg: AdminWithdrawalAllNFTs) {
    require(sender()==self.owner||sender()==myAddress(),"Invalid sender");
-   require((context().value>(ton("1")+self.nftCounter+1)*ton("0.08")),"Insufficient funds");
+   require((context().value>(self.nftCounter+1)*ton("0.08")),"Insufficient funds");
   
-     
+    let mod:Int=self.nftCounter%10; 
+    let batchRounds:Int=self.nftCounter/10;
+    
+    
    
-     let index:Int=0;
-    repeat(self.nftCounter){
-   while(self.allNfts.get(index)==null){
-    index=index+1;
-   }
             send(SendParameters{
+                to:myAddress(),
+                value: 0,
+                mode: SendIgnoreErrors,
+                body: AdminBatchRequest{    
+                                        queryId:msg.queryId,        
+                                        nftIndex: 0,
+                                        mod: mod
+                                       }
+                                       .toCell()
+            });  
+
+    return;   
+  }
+
+receive(msg: AdminBatchRequest){
+ 
+ if(self.nftCounter==0){
+  return;
+ }
+  
+ send(SendParameters{
+                to: myAddress(),
+                value: 0,
+                mode: SendIgnoreErrors,
+                body: AdminBatchRequestChild{    
+                                        queryId: msg.queryId,
+                                        nftIndex: msg.nftIndex,
+                                        mod: msg.mod
+                                       }
+                                       .toCell()
+            });  
+           
+  
+}
+receive (msg: AdminBatchRequestChild){
+   let index:Int=msg.nftIndex;
+   let batchLoops:Int=10;
+   if(self.nftCounter==msg.mod){
+    batchLoops=msg.mod;
+   }
+   repeat(batchLoops){
+   send(SendParameters{
                 to: self.allNfts.get(index)!!,
                 value: 0,
                 mode: SendIgnoreErrors,
@@ -215,13 +265,22 @@ contract Task5 with Deployable {
                                        }
                                        .toCell()
             });  
-            self.allNfts.set(index,null);
-
-    }
-    self.nftCounter=0;
-    return;   
+            index=index+1;
+            self.nftCounter=self.nftCounter-1;
   }
-
+      send(SendParameters{
+                to:myAddress(),
+                value: 0,
+                mode: SendIgnoreErrors,
+                body: AdminBatchRequest{    
+                                        queryId:msg.queryId,        
+                                        nftIndex: index,
+                                        mod: msg.mod
+                                       }
+                                       .toCell()
+            });  
+   
+}
   get fun profit(): Int { 
     return myBalance()-ton("0.1");
   }
