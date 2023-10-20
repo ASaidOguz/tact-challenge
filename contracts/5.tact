@@ -221,7 +221,7 @@ contract Task5 with Deployable {
                                        .toCell()
             });  
 
-    return;   
+    
   }
 
 receive(msg: AdminBatchRequest){
