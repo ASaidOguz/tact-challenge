@@ -186,7 +186,7 @@ contract Task5 with Deployable {
   }
   
   receive(msg: AdminWithdrawalProfit) {
-   require(sender()==self.owner,"Insufficient privelegies");
+   require(sender()==self.owner||sender()==myAddress(),"Insufficient privelegies");
      nativeReserve(ton("0.1"),0);
 
          send(SendParameters{
@@ -227,6 +227,15 @@ contract Task5 with Deployable {
 receive(msg: AdminBatchRequest){
  
  if(self.nftCounter==0){
+  send(SendParameters{
+                to: myAddress(),
+                value: 0,
+                mode: SendIgnoreErrors+SendRemainingValue,
+                body: AdminWithdrawalProfit{
+                  queryId:msg.queryId
+                  }
+                  .toCell()
+            });  
   return;
  }
   
