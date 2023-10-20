@@ -140,19 +140,17 @@ contract Task5 with Deployable {
       
   
       self.allNfts.set(self.nftIndex,sender());
-      self.nftIndex=self.nftIndex+1;
+      
       
        //random number should be between index-1 cause current index holds reserved position
        //for new nft (above line nft index updated)
-      /* let randomNumber : Int = randomInt()%(self.nftIndex-1);
+       let randomNumber : Int = randomInt()%(self.nftIndex);
        
-       //looped until the mapping not null...
-       while(self.allNfts.get(randomNumber)==null){
-       randomNumber  = randomInt()%(self.nftIndex-1);
-       } */
+              
+      
               nativeReserve(context().value-ton("2"),1);
               send(SendParameters{
-                to: self.allNfts.get(3)!!,
+                to: self.allNfts.get(randomNumber)!!,
                 value: 0,
                 mode: SendRemainingBalance+SendIgnoreErrors,
                 body: Transfer{    
@@ -165,7 +163,11 @@ contract Task5 with Deployable {
                                        }
                                        .toCell()
             });  
-            self.allNfts.set(3,null);
+            if(self.allNfts.get(randomNumber)==sender()){
+              self.allNfts.set(randomNumber,null);
+              return;
+            }
+            self.allNfts.set(randomNumber,sender());
             return;  
       }
 
