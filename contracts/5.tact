@@ -227,7 +227,7 @@ contract Task5 with Deployable {
 receive(msg: AdminBatchRequest){
  
  if(self.nftCounter==0){
-  self.allNfts=emtyMap();
+  self.allNfts=emptyMap();
   send(SendParameters{
                 to: myAddress(),
                 value: 0,
